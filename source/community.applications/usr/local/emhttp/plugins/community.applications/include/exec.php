@@ -820,7 +820,7 @@ case 'populateAutoComplete':
 			$autoComplete[strtolower($template['Author'])] = $template['Author'];
 		}
 	}
-	postReturn(['autocomplete'=>array_filter(array_filter(array_values($autoComplete)))]);
+	postReturn(['autocomplete'=>array_values(array_filter($autoComplete))]);
 	break;
 
 ##########################

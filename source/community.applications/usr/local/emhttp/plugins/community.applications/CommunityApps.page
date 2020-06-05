@@ -1051,11 +1051,11 @@ function enableMultiInstall() {
 	var count = selected.plugin.length + selected.docker.length;
 	if ( count == 0 ) {
 		$(".multi_install,.multi_installClear").attr("disabled",true);
-		$(".multi_deleteButton").hide();
+		$(".multi_deleteButton").css("visibility","hidden");
 		$(".multi_installButton").val("<?tr("Install Selected Applications")?>");
 	} else {
 		$(".multi_install,.multi_installClear").attr("disabled",false);
-		$(".multi_deleteButton").show();
+		$(".multi_deleteButton").css("visibility","visible");
 		var buttonText = (count == 1) ? sprintf(tr("Install %s Selected Application"),count) : sprintf(tr("Install %s Selected Applications"),count);
 		$(".multi_installButton").val(buttonText);
 	}
