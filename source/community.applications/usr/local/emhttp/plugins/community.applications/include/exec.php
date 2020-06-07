@@ -181,6 +181,10 @@ case 'get_content':
 		if ( $displayPrivates && ! $template['Private'] ) continue;
 
 		if ($filter) {
+			# Can't be done at appfeed download time because the translation may or may not exist if the user switches languages
+			foreach (explode(" ",$template['Category']) as $trCat) {
+				$template['translatedCategories'] .= tr($trCat)." ";
+			}
 			if ( filterMatch($filter,array($template['Name'],$template['Language'],$template['LanguageLocal'])) ) {
 				$template['Name_highlighted'] = highlight($filter,$template['Name']);
 				$template['Description'] = highlight($filter, $template['Description']);
@@ -191,7 +195,7 @@ case 'get_content':
 					$template['LanguageLocal'] = highlight($filter,$template['LanguageLocal']);
 				}
 				$searchResults['nameHit'][] = $template;
-			} else if ( filterMatch($filter,array($template['Author'],$template['Description'],$template['RepoName'],$template['Category'])) ) {
+			} else if ( filterMatch($filter,array($template['Author'],$template['Description'],$template['RepoName'],$template['translatedCategories'])) ) {
 				$template['Description'] = highlight($filter, $template['Description']);
 				$template['Author'] = highlight($filter, $template['Author']);
 				$template['CardDescription'] = highlight($filter,$template['CardDescription']);
@@ -807,7 +811,7 @@ case 'removePrivateApp':
 ####################################################
 case 'populateAutoComplete':
 	$templates = readJsonFile($caPaths['community-templates-info']);
-	$autoComplete = array_map(function($x){return str_replace(":","",$x['Cat']);},readJsonFile($caPaths['categoryList']));
+	$autoComplete = array_map(function($x){return str_replace(":","",tr($x['Cat']));},readJsonFile($caPaths['categoryList']));
 	foreach ($templates as $template) {
 		if ( ! $template['Blacklist'] && ! ($template['Deprecated'] && $caSettings['hideDeprecated'] == "true") && ($template['Compatible'] || $caSettings['hideIncompatible'] != "true") ) {
 			if ( $template['Language'] && $template['LanguageLocal'] ) {
@@ -820,6 +824,9 @@ case 'populateAutoComplete':
 			$autoComplete[strtolower($template['Author'])] = $template['Author'];
 		}
 	}
+	if ( version_compare("6.9.0-beta1",$caSettings['unRaidVersion'],"<") )
+		$autoComplete[tr("language")] = tr("Language");
+	
 	postReturn(['autocomplete'=>array_values(array_filter($autoComplete))]);
 	break;
 
