@@ -530,11 +530,11 @@ function getPopupDescription($appNumber) {
 	$templateDescription .= $template['stars'] ? "<tr><td nowrap>".tr("DockerHub Stars:")."</td><td><span class='dockerHubStar'></span> ".$template['stars']."</td></tr>" : "";
 
 	if ( $template['FirstSeen'] > 1 && $template['Name'] != "Community Applications" && $countryCode != "en_US")
-		$templateDescription .= "<tr><td>".tr("Added to CA:")."</td><td>".my_lang(date("F",$template['FirstSeen']),0).date(" j, Y",$template['FirstSeen'])."</td></tr>";
+		$templateDescription .= "<tr><td>".tr("Added to CA:")."</td><td>".tr(date("F",$template['FirstSeen']),0).date(" j, Y",$template['FirstSeen'])."</td></tr>";
 
 	# In this day and age with auto-updating apps, NO ONE keeps up to date with the date updated.  Remove from docker containers to avoid confusion
 	if ( $template['Date'] && $template['Plugin'] ) {
-		$niceDate = my_lang(date("F",$template['Date']),0).date(" j, Y",$template['Date']);
+		$niceDate = tr(date("F",$template['Date']),0).date(" j, Y",$template['Date']);
 		$templateDescription .= "<tr><td nowrap>".tr("Date Updated:")."</td><td>$niceDate</td></tr>";
 	}
 	if ( $template['Plugin'] ) {
@@ -565,7 +565,7 @@ function getPopupDescription($appNumber) {
 		if (is_array($template['trends']) && (count($template['trends']) > 1) ){
 			$templateDescription .= "  ".sprintf(tr("Trending %s"), (end($template['trends']) > $template['trends'][count($template['trends'])-2]) ? " <span class='trendingUp'></span>" : " <span class='trendingDown'></span>");
 		}
-		$templateDescription .= "<tr><td></td><td>".sprintf(tr("(As of %s)"),my_lang(date("F",$template['LastUpdateScan'])).date(" j, Y  g:i a",$template['LastUpdateScan']),0)."</td></tr>";
+		$templateDescription .= "<tr><td></td><td>".sprintf(tr("(As of %s)"),tr(date("F",$template['LastUpdateScan']),0).date(" j, Y  g:i a",$template['LastUpdateScan']),0)."</td></tr>";
 		$templateDescription .= "</td></tr>";
 	}
 
@@ -718,7 +718,7 @@ function getPopupDescription($appNumber) {
 
 	if (is_array($template['trendsDate']) ) {
 		array_walk($template['trendsDate'],function(&$entry) {
-			$entry = my_lang(date("M",$entry),0).date(" j",$entry);
+			$entry = tr(date("M",$entry),0).date(" j",$entry);
 		});
 	}
 

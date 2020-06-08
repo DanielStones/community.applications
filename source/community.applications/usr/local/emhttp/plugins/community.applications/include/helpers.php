@@ -534,9 +534,9 @@ function postReturn($retArray) {
 # Translation backwards compatible #
 ####################################
 if ( ! function_exists("tr") ) {
-	function tr($string) {
+	function tr($string,$options=-1) {
 		if ( function_exists("_") ) {
-			$translated = _($string);
+			$translated = _($string,$options);
 			if ( startsWith($translated,"&#34;") && endsWith($translated,"&#34;") )
 				$translated = first_str_replace(last_str_replace($translated,"&#34;",""),"&#34;","");
 			
@@ -544,11 +544,6 @@ if ( ! function_exists("tr") ) {
 
 			return $translated;
 		}
-		return $string;
-	}
-}
-if ( ! function_exists("my_lang") ) {
-	function my_lang($string) {
 		return $string;
 	}
 }

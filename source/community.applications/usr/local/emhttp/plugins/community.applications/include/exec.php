@@ -741,7 +741,7 @@ case 'statistics':
 	if ( is_file($caPaths['lastUpdated-old']) )
 		$appFeedTime = readJsonFile($caPaths['lastUpdated-old']);
 
-	$updateTime = my_lang(date("F",$appFeedTime['last_updated_timestamp'])).date(" d, Y @ g:i a",$appFeedTime['last_updated_timestamp']);
+	$updateTime = tr(date("F",$appFeedTime['last_updated_timestamp']),0).date(" d, Y @ g:i a",$appFeedTime['last_updated_timestamp']);
 	$defaultArray = Array('caFixed' => 0,'totalApplications' => 0, 'repository' => 0, 'docker' => 0, 'plugin' => 0, 'invalidXML' => 0, 'blacklist' => 0, 'totalIncompatible' =>0, 'totalDeprecated' => 0, 'totalModeration' => 0, 'private' => 0, 'NoSupport' => 0);
 	$statistics = array_merge($defaultArray,$statistics);
 
