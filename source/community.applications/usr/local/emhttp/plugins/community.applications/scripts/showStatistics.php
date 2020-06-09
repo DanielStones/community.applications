@@ -14,8 +14,6 @@ require_once "$docroot/plugins/dynamix/include/Helpers.php";
 
 $translations = is_file("$docroot/plugins/dynamix/include/Translations.php");
 
-$dynamix = parse_plugin_cfg("dynamix");
-
 if ( $translations ) {
 	$_SERVER['REQUEST_URI'] = "docker/apps";
 	require_once "$docroot/plugins/dynamix/include/Translations.php";

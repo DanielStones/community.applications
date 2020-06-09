@@ -7,16 +7,16 @@
 ###############################################################
 $docroot = $docroot ?? $_SERVER['DOCUMENT_ROOT'] ?: "/usr/local/emhttp";
 
+if ( $translations ) {
+	$_SERVER['REQUEST_URI'] = "docker/apps";
+	require_once "$docroot/plugins/dynamix/include/Translations.php";
+}
+
 require_once "$docroot/plugins/community.applications/include/paths.php";
 require_once "$docroot/plugins/dynamix/include/Wrappers.php";
 
 $unRaidVersion = parse_ini_file($caPaths['unRaidVersion']);
 $translations  = is_file("$docroot/plugins/dynamix/include/Translations.php");
-
-if ( $translations ) {
-	$_SERVER['REQUEST_URI'] = "docker/apps";
-	require_once("$docroot/plugins/dynamix/include/Translations.php");
-}
 
 function tr($string,$ret=true) {
 	if ( function_exists("_") )
@@ -32,7 +32,7 @@ function startsWith($haystack, $needle) {
 }
 
 # Modify the system file to avoid a harmless error from being displayed under normal circumstances
-# Not needed under unRaid 6.6.3+
+# Not needed under unRaid 6.6.2+
 
 if ( version_compare($unRaidVersion['version'],"6.6.2",">=") ) {
 	$exeFile = "/usr/local/emhttp/plugins/dynamix.docker.manager/include/CreateDocker.php";
