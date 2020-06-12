@@ -259,6 +259,7 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 			if ( $countryCode !== "en_US" ) {
 				$template['ca_LanguageDisclaimer'] = "<span class='ca_LanguageDisclaimer ca_staticTips ca_fa-warning warning-yellow ' title='{$template['disclaimLine1']}<br>{$template['disclaimLine2']}'> {$template['disclaimLanguage']}</span>";
 			}
+			$template['display_author'] = languageAuthorList($template['Author']);
 		}
 
 # Entries created.  Now display it

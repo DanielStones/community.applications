@@ -454,7 +454,21 @@ function categoryList($cat,$popUp = false) {
 	}
 	return rtrim(implode(", ",$categoryList),", ");
 }
-
+##################################
+# Trims the language author list #
+##################################
+function languageAuthorList($authors) {
+	$allAuthors = explode(",",$authors);
+	if ( count($allAuthors) > 3 ) {
+		$newAuthors = array_slice($allAuthors,0,3);
+		foreach ($newAuthors as $author) {
+			$newAuthor .= trim($author).", ";
+		}
+		$excess = count($allAuthors) -3;
+		$authors = rtrim($newAuthor,", ")." ".sprintf(tr("and %s more"),$excess);
+	}
+	return $authors;
+}
 #####################################
 # Gets a rounded off download count #
 #####################################
