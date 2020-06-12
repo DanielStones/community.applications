@@ -256,6 +256,9 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 				unset($template['display_dockerInstallIcon']);
 				$template['display_languageInstallIcon'] = "<a class='ca_tooltip appIcons ca_fa-install languageInstall' title='{$template['InstallLanguage']}' data-language='$countryCode' data-language_xml='{$template['TemplateURL']}'></a>";
 			}
+			if ( $countryCode !== "en_US" ) {
+				$template['ca_LanguageDisclaimer'] = "<span class='ca_LanguageDisclaimer ca_staticTips ca_fa-warning warning-yellow ' title='{$template['disclaimLine1']}<br>{$template['disclaimLine2']}'> {$template['disclaimLanguage']}</span>";
+			}
 		}
 
 # Entries created.  Now display it
@@ -658,7 +661,7 @@ function getPopupDescription($appNumber) {
 		$templateDescription .= "<hr>";
 	}
 
-	$templateDescription .= $template['Language'] ? $template['Description'] : strip_tags($template['Description']);
+	$templateDescription .= $template['Language'] ? $template['Description']."<br><br><span class='ca_fa-warning warning-yellow'>  {$template['disclaimLine1']}<br>{$template['disclaimLine2']}</span>" : strip_tags($template['Description']);
 	$templateDescription .= $template['ModeratorComment'] ? "<br><br><span class='ca_bold'><font color='red'>".tr("Moderator Comments:")."</font></span> ".$template['ModeratorComment'] : "";
 	$templateDescription .= "</p><br><div class='ca_center'>";
 
@@ -787,7 +790,7 @@ function displayCard($template) {
 			<div class='ca_bottomLine'>
 				{$template['display_multi_install']}{$template['display_languageUpdate']}{$template['display_languageInstallIcon']}{$template['display_language_switch']}{$template['display_pluginInstallIcon']} {$template['display_dockerInstallIcon']} $dockerReinstall {$template['display_dockerReinstallIcon']} {$template['display_dockerEditIcon']} {$template['display_pluginSettingsIcon']}{$template['display_infoIcon']} {$template['dockerWebIcon']} {$template['display_faSupport']} {$template['display_faThumbsUp']} {$template['display_faProject']} {$template['display_pinButton']} &nbsp;&nbsp; {$template['display_removable']} {$template['display_Uninstall']}
 				<span class='ca_bottomRight'>
-					{$template['display_DonateImage']}
+					{$template['display_DonateImage']}{$template['ca_LanguageDisclaimer']}
 				</span>
 			</div>
 			<div class='ca_descriptionArea'>
