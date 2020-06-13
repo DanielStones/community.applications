@@ -59,7 +59,7 @@ switch ($theme) {
 		$watermarkColor = "rgba(96, 110, 127, 0.1)";
 		break;
 // Use settings for black as a fallback
-	default:  
+	default:
 		$donateBackground = "#f2f2f2";
 		$donateText = "#1c1b1b";
 		$templateBackground = "#191818";
@@ -272,7 +272,7 @@ a.appIconsPopUp { text-decoration:none;color:inherit;}
 .awesomplete > ul:empty {display: none;}
 .awesomplete > ul {border-radius: .3em;margin: .2em 0 0;background: hsla(0,0%,100%,.9);background: linear-gradient(to bottom right, white, hsla(0,0%,100%,.8));border: 1px solid rgba(0,0,0,.3);box-shadow: .05em .2em .6em rgba(0,0,0,.2);text-shadow: none;}
 @supports (transform: scale(0)) {.awesomplete > ul {transition: .3s cubic-bezier(.4,.2,.5,1.4);transform-origin: 1.43em -.43em;}
-  .awesomplete > ul[hidden],.awesomplete > ul:empty {opacity: 0;transform: scale(0);display: block;transition-timing-function: ease;}
+	.awesomplete > ul[hidden],.awesomplete > ul:empty {opacity: 0;transform: scale(0);display: block;transition-timing-function: ease;}
 }
 /* Pointer */
 .awesomplete > ul:before {content: "";position: absolute;top: -.43em;left: 1em;width: 0; height: 0;padding: .4em;background: white;border: inherit;border-right: 0;border-bottom: 0;-webkit-transform: rotate(45deg);transform: rotate(45deg);}

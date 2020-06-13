@@ -399,7 +399,7 @@ case 'dismiss_warning':
 	file_put_contents($caPaths['warningAccepted'],"warning dismissed");
 	postReturn(['status'=>"warning dismissed"]);
 	break;
-	
+
 case 'dismiss_plugin_warning':
 	file_put_contents($caPaths['pluginWarning'],"disclaimer ok");
 	postReturn(['status'=>"disclaimed"]);
@@ -819,14 +819,14 @@ case 'populateAutoComplete':
 				$autoComplete[strtolower($template['LanguageLocal'])] = $template['LanguageLocal'];
 			} else {
 				$autoComplete[$template['Repo']] = $template['Repo'];
-			}	
+			}
 			$autoComplete[strtolower($template['Name'])] = $template['Name'];
 			$autoComplete[strtolower($template['Author'])] = $template['Author'];
 		}
 	}
 	if ( version_compare("6.9.0-beta1",$caSettings['unRaidVersion'],"<") )
 		$autoComplete[tr("language")] = tr("Language");
-	
+
 	postReturn(['autocomplete'=>array_values(array_filter($autoComplete))]);
 	break;
 
@@ -899,7 +899,7 @@ case 'createXML':
 			break;
 		}
 		$template = $templates[$index];
-		if ( $template['OriginalOverview'] ) 
+		if ( $template['OriginalOverview'] )
 			$template['Overview'] = $template['OriginalOverview'];
 		if ( $template['OriginalDescription'] )
 			$template['Description'] = $template['OriginalDescription'];
@@ -918,17 +918,17 @@ case 'createXML':
 		$cachePools = array_keys(array_filter($cachePools, function($k) {
 			return $k['status'] !== "DISK_NP";
 		}));
-		
+
 		// always prefer the default cache pool
 		if ( in_array("cache",$cachePools) )
 			array_unshift($cachePools,"cache"); // This will be a duplicate, but it doesn't matter as we only reference item0
-		
+
 		// Prefer cache pools over disks
 		$disksPresent = array_merge($cachePools,$disksPresent,array("disks"));
-		
+
 		// check to see if user shares enabled
 		$unRaidVars = parse_ini_file($caPaths['unRaidVars']);
-		if ( $unRaidVars['shareUser'] == "e" ) 
+		if ( $unRaidVars['shareUser'] == "e" )
 			$disksPresent[] = "user";
 		if ( @is_array($template['Data']['Volume']) ) {
 			$testarray = $template['Data']['Volume'];
@@ -941,23 +941,23 @@ case 'createXML':
 			}
 			$template['Data']['Volume'] = $testarray;
 		}
-		
+
 		if ( $template['Config'] ) {
 			$testarray = $template['Config'] ?: array();
 			if (!$testarray[0]) $testarray = array($testarray);
-			
+
 			foreach ($testarray as &$config) {
 				if ( is_array($config['@attributes']) ) {
 					if ( $config['@attributes']['Type'] == "Path" ) {
 						$defaultReferenced = array_values(array_filter(explode("/",$config['@attributes']['Default'])));
 
-						if ( $defaultReferenced[0] == "mnt" && $defaultReferenced[1] && ! in_array($defaultReferenced[1],$disksPresent) ) 
+						if ( $defaultReferenced[0] == "mnt" && $defaultReferenced[1] && ! in_array($defaultReferenced[1],$disksPresent) )
 							$config['@attributes']['Default'] = str_replace("/mnt/{$defaultReferenced[1]}/","/mnt/{$disksPresent[0]}/",$config['@attributes']['Default']);
 
 						$valueReferenced = array_values(array_filter(explode("/",$config['value'])));
 						if ( $valueReferenced[0] == "mnt" && $valueReferenced[1] && ! in_array($valueReferenced[1],$disksPresent) )
 							$config['value'] = str_replace("/mnt/{$valueReferenced[1]}/","/mnt/{$disksPresent[0]}/",$config['value']);
-			
+
 					}
 				}
 			}
@@ -969,7 +969,7 @@ case 'createXML':
 	}
 	postReturn(["status"=>"ok","cache"=>$cacheVolume]);
 	break;
-	
+
 ########################
 # Switch to a language #
 ########################
@@ -977,7 +977,7 @@ case 'switchLanguage':
 	$language = getPost("language","");
 	if ( $language == "en_US" )
 		$language = "";
-	
+
 	if ( ! is_dir("/usr/local/emhttp/languages/$language") )  {
 		postReturn(["error"=>"language $language is not installed"]);
 		break;
@@ -1004,7 +1004,7 @@ case 'remove_multiApplications':
 		}
 		@unlink($app);
 	}
-	if ( $error ) 
+	if ( $error )
 		postReturn(["error"=>$error]);
 	else
 		postReturn(["status"=>"ok"]);

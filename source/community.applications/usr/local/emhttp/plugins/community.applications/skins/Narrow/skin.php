@@ -66,7 +66,7 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 
 	$currentServer = @file_get_contents($caPaths['currentServer']);
 
-	# Create entries for skins.  
+	# Create entries for skins.
 	foreach ($displayedTemplates as $template) {
 		if ( $currentServer == "Primary Server" && $template['IconHTTPS'])
 			$template['Icon'] = $template['IconHTTPS'];
@@ -552,7 +552,6 @@ function getPopupDescription($appNumber) {
 			$templateDescription .= "<tr><td nowrap>".tr("Installed Version:")."</td><td>$installedVersion</td></tr>";
 		}
 	}
-
 
 	$unraidVersion = parse_ini_file($caPaths['unRaidVersion']);
 	$templateDescription .= ( $template['MinVer'] > "6.4.0" ) ? "<tr><td nowrap>".tr("Minimum OS:")."</td><td>Unraid v".$template['MinVer']."</td></tr>" : "";

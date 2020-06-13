@@ -59,7 +59,7 @@ function download_url($url, $path = "", $bg = false, $timeout = 45) {
 	curl_setopt($ch,CURLOPT_ENCODING,"");
 	curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-	
+
 	if ( is_file("/boot/config/plugins/community.applications/proxy.cfg") ) {
 		$proxyCFG = parse_ini_file("/boot/config/plugins/community.applications/proxy.cfg");
 		curl_setopt($ch, CURLOPT_PROXYPORT,intval($proxyCFG['port']));
@@ -102,14 +102,14 @@ function startsWith($haystack, $needle) {
 
 #############################################
 # Determine if $string ends with $endstring #
-############################################# 
-function endsWith($string, $endString) { 
-	$len = strlen($endString); 
-	if ($len == 0) { 
-		return true; 
-	} 
-	return (substr($string, -$len) === $endString); 
-} 
+#############################################
+function endsWith($string, $endString) {
+	$len = strlen($endString);
+	if ($len == 0) {
+		return true;
+	}
+	return (substr($string, -$len) === $endString);
+}
 
 ###########################################
 # Replace the first occurance in a string #
@@ -156,7 +156,7 @@ function recommendedSort($a,$b) {
 	if ( $b['Recommended'] ) return 1;
 	return 0;
 }
-	
+
 ###############################################
 # Search array for a particular key and value #
 # returns the index number of the array       #
@@ -405,7 +405,7 @@ function isMobile() {
 ################################################
 function getAuthor($template) {
 	if ( $template['PluginURL'] ) return $template['PluginAuthor'];
-	
+
 	if ( $template['Author'] ) return strip_tags($template['Author']);
 	$repoEntry = explode("/",$template['Repository']);
 	if (count($repoEntry) < 2)
@@ -553,7 +553,7 @@ if ( ! function_exists("tr") ) {
 			$translated = _($string,$options);
 			if ( startsWith($translated,"&#34;") && endsWith($translated,"&#34;") )
 				$translated = first_str_replace(last_str_replace($translated,"&#34;",""),"&#34;","");
-			
+
 			$translated =  str_replace('"',"&#34;",str_replace("'","&#39;",$translated));
 
 			return $translated;
@@ -567,7 +567,7 @@ if ( ! function_exists("tr") ) {
 #############################
 function languageCheck($template) {
 	global $caPaths;
-	
+
 	if ( ! $template['LanguageURL'] ) return false;
 
 	$countryCode = $template['LanguagePack'];
@@ -575,11 +575,11 @@ function languageCheck($template) {
 	$dynamixUpdate = "{$caPaths['dynamixUpdates']}/lang-$countryCode.xml";
 	if ( ! is_file($installedLanguage) )
 		return false;
-	
+
 	$OSupdates = readXmlFile($dynamixUpdate,true);   // Because the OS might check for an update before the feed
 	if ( ! $OSupdates )
 		$OSupdates['Version'] = "1900.01.01";
-		
+
 	$xmlFile = readXmlFile($installedLanguage,true);
 
 	return (strcmp($template['Version'],$xmlFile['Version']) > 0) || (strcmp($OSupdates['Version'],$xmlFile['Version']) > 0);
