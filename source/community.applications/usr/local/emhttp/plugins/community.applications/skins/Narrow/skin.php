@@ -257,7 +257,7 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 				$template['display_languageInstallIcon'] = "<a class='ca_tooltip appIcons ca_fa-install languageInstall' title='{$template['InstallLanguage']}' data-language='$countryCode' data-language_xml='{$template['TemplateURL']}'></a>";
 			}
 			if ( $countryCode !== "en_US" ) {
-				$template['ca_LanguageDisclaimer'] = "<span class='ca_LanguageDisclaimer ca_staticTips ca_fa-warning warning-yellow ' title='{$template['disclaimLine1']}<br>{$template['disclaimLine2']}'> {$template['disclaimLanguage']}</span>";
+				$template['ca_LanguageDisclaimer'] = "<span class='ca_LanguageDisclaimer ca_staticTips ca_fa-warning warning-yellow ' title='{$template['disclaimLine1']}'> {$template['disclaimLanguage']}</span>";
 			}
 			$template['display_author'] = languageAuthorList($template['Author']);
 		}
@@ -662,7 +662,7 @@ function getPopupDescription($appNumber) {
 		$templateDescription .= "<hr>";
 	}
 
-	$templateDescription .= $template['Language'] ? $template['Description']."<br><br><span class='ca_fa-warning warning-yellow'>  {$template['disclaimLine1']}<br>{$template['disclaimLine2']}</span>" : strip_tags($template['Description']);
+	$templateDescription .= $template['Language'] ? $template['Description']."<br><br><span class='ca_fa-warning warning-yellow'>  {$template['disclaimLine1']}</span>" : strip_tags($template['Description']);
 	$templateDescription .= $template['ModeratorComment'] ? "<br><br><span class='ca_bold'><font color='red'>".tr("Moderator Comments:")."</font></span> ".$template['ModeratorComment'] : "";
 	$templateDescription .= "</p><br><div class='ca_center'>";
 
