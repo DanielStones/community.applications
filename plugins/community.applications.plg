@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "community.applications">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2020.06.13">
-<!ENTITY md5       "2ef89225305bd7546e508f7bcdc42b50">
+<!ENTITY version   "2020.06.13a">
+<!ENTITY md5       "d8c4b471893d31ec68903550503d5183">
 <!ENTITY launch    "Apps">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/community.applications">
@@ -15,6 +15,7 @@
 <CHANGES>
 ###2020.06.13
 - Various minor fixes
+- Fixed: Identically named apps from within same repository AND same author, but different tags would install the wrong app.
 
 ###2020.06.08
 - Add ability to delete multiple templates from Previous Apps Section
