@@ -588,40 +588,21 @@ function languageCheck($template) {
 ######################
 # Writes an ini file #
 ######################
-function write_ini_file($file, $array = []) {
-	if (!is_string($file)) {
-		throw new \InvalidArgumentException('Function argument 1 must be a string.');
-	}
-
-	if (!is_array($array)) {
-		throw new \InvalidArgumentException('Function argument 2 must be an array.');
-	}
-
-	$data = array();
-	foreach ($array as $key => $val) {
-		if (is_array($val)) {
-			$data[] = "[$key]";
-			foreach ($val as $skey => $sval) {
-				if (is_array($sval)) {
-					foreach ($sval as $_skey => $_sval) {
-						if (is_numeric($_skey)) {
-							$data[] = $skey.'[] = '.(is_numeric($_sval) ? $_sval : (ctype_upper($_sval) ? $_sval : '"'.$_sval.'"'));
-						} else {
-							$data[] = $skey.'['.$_skey.'] = '.(is_numeric($_sval) ? $_sval : (ctype_upper($_sval) ? $_sval : '"'.$_sval.'"'));
-						}
-					}
-				} else {
-					$data[] = $skey.'='.(is_numeric($sval) ? $sval : (ctype_upper($sval) ? $sval : '"'.$sval.'"'));
-				}
-			}
-		} else {
-			$data[] = $key.'='.(is_numeric($val) ? $val : (ctype_upper($val) ? $val : '"'.$val.'"'));
+function write_ini_file($file,$array) {
+	$res = array();
+	foreach($array as $key => $val) {
+		if(is_array($val)) {
+			$res[] = "[$key]";
+			foreach($val as $skey => $sval)
+				$res[] = $skey.'="'.$sval.'"';
 		}
+		else
+			$res[] = $key='"'.$val.'"';
 	}
-
-	file_put_contents($file,implode("\r\n",$data),LOCK_EX);
-	return true;
+	file_put_contents($file,implode("\r\n", $res),LOCK_EX);
 }
+
+
  /**
  * @copyright Copyright 2006-2012, Miles Johnson - http://milesj.me
  * @license   http://opensource.org/licenses/mit-license.php - Licensed under the MIT License

@@ -572,7 +572,7 @@ function getPopupDescription($appNumber) {
 		$templateDescription .= "<tr><td></td><td>".sprintf(tr("(As of %s)"),tr(date("F",$template['LastUpdateScan']),0).date(" j, Y  g:i a",$template['LastUpdateScan']),0)."</td></tr>";
 		$templateDescription .= "</td></tr>";
 	}
-
+	$templateDescription .= $template['disclaimLine1'] && ! $template['LanguageDefault'] ? "<tr><td></td><td><span class='ca_fa-warning warning-yellow'>  {$template['disclaimLine1']}</span></td></tr>" : "";
 	$templateDescription .= "</table></div>";
 
 	$templateDescription .= "<div class='ca_center'><span class='popUpDeprecated'>";
@@ -661,8 +661,7 @@ function getPopupDescription($appNumber) {
 		}
 		$templateDescription .= "<hr>";
 	}
-
-	$templateDescription .= $template['Language'] ? $template['Description']."<br><br><span class='ca_fa-warning warning-yellow'>  {$template['disclaimLine1']}</span>" : strip_tags($template['Description']);
+	$templateDescription .= $template['Language'] ? $template['Description'] : strip_tags($template['Description']);
 	$templateDescription .= $template['ModeratorComment'] ? "<br><br><span class='ca_bold'><font color='red'>".tr("Moderator Comments:")."</font></span> ".$template['ModeratorComment'] : "";
 	$templateDescription .= "</p><br><div class='ca_center'>";
 
