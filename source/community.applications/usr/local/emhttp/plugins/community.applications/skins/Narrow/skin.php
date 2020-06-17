@@ -140,6 +140,8 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 					$pluginSettings = $pluginName == "community.applications.plg" ? "ca_settings" : plugin("launch","/var/log/plugins/$pluginName");
 					$tmpVar = $pluginSettings ? "" : " disabled ";
 					$template['display_pluginSettingsIcon'] = $pluginSettings ? "<a class='ca_tooltip ca_fa-pluginSettings appIcons' title='".tr("Go to the plugin settings")."' href='/Apps/$pluginSettings'></a>" : "";
+					unset($template['display_multi_install']);
+					unset($template['display_removable']);
 				} else {
 					$template['display_pluginInstallIcon'] = "<a style='cursor:pointer' class='ca_tooltip ca_fa-install appIcons' title='".tr("Install plugin")."' onclick=installPlugin('{$template['PluginURL']}');></a>";
 				}
@@ -151,6 +153,8 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 						$template['display_dockerDefaultIcon'] = $template['BranchID'] ? "<a class='ca_tooltip ca_fa-install appIcons' type='button' style='margin:0px' title='".tr("Click to reinstall the application using default values")."' onclick='displayTags(&quot;$ID&quot;);'></a>" : $template['display_dockerDefaultIcon'];
 						$template['display_dockerEditIcon']    = "<a class='ca_tooltip appIcons ca_fa-edit xmlInstall' title='".tr("Click to edit the application values")."' data-type='edit' data-xml='".addslashes($info[$name]['template'])."'></a>";
 						$template['display_dockerReinstallIcon'] = $caSettings['defaultReinstall'] == "true" ? "<a class='ca_tooltip ca_fa-install appIcons xmlInstall' title='".tr("Click to reinstall")."' data-type='default' data-xml='".addslashes($template['InstallPath'])."'></a>" : "";
+						unset($template['display_multi_install']);
+				
 						if ( $info[$name]['url'] && $info[$name]['running'] )
 							$template['dockerWebIcon'] = "<a class='ca_tooltip appIcons ca_fa-globe' href='{$info[$name]['url']}' target='_blank' title='".tr("Click to go to the WebUI")."'></a>";
 					} else {
