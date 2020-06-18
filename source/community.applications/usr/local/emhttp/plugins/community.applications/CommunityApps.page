@@ -1432,7 +1432,12 @@ function tr(string) {
 }
 
 function CAswitchLanguage(language) {
-	$.cookie('locale','<?=$locale?>',{path:'/'}); // save the previous locale
+	if ( language == "en_US" || ! language)
+		var oldlanguage = '<?=$locale?>';
+	else
+		var oldlanguage = "";
+
+	$.cookie('locale',oldlanguage,{path:'/'}); // save the previous locale
 	post({action:'switchLanguage',language:language},function(result) {
 		data.searchActive = true; // so the system doesn't resort
 		saveState();

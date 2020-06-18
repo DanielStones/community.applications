@@ -154,7 +154,7 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 						$template['display_dockerEditIcon']    = "<a class='ca_tooltip appIcons ca_fa-edit xmlInstall' title='".tr("Click to edit the application values")."' data-type='edit' data-xml='".addslashes($info[$name]['template'])."'></a>";
 						$template['display_dockerReinstallIcon'] = $caSettings['defaultReinstall'] == "true" ? "<a class='ca_tooltip ca_fa-install appIcons xmlInstall' title='".tr("Click to reinstall")."' data-type='default' data-xml='".addslashes($template['InstallPath'])."'></a>" : "";
 						unset($template['display_multi_install']);
-				
+
 						if ( $info[$name]['url'] && $info[$name]['running'] )
 							$template['dockerWebIcon'] = "<a class='ca_tooltip appIcons ca_fa-globe' href='{$info[$name]['url']}' target='_blank' title='".tr("Click to go to the WebUI")."'></a>";
 					} else {
