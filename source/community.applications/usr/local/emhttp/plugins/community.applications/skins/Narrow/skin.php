@@ -96,7 +96,8 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 		$template['display_DonateImage'] = $template['DonateLink'] ? "<a class='ca_tooltip donateLink donate' href='{$template['DonateLink']}' target='_blank' title='{$template['DonateText']}'>".tr("Donate")."</a>" : "";
 
 		$template['display_faProject'] = $template['Project'] ? "<a class='ca_tooltip ca_fa-project appIcons' target='_blank' href='{$template['Project']}' title='".tr("Go to the project page")."'></a>" : "";
-		$template['display_faSupport'] = $template['Support'] ? "<a class='ca_tooltip ca_fa-support appIcons' href='{$template['Support']}' target='_blank' title='".tr("Go to the support thread")."'></a>" : "";
+		$supportText = $template['SupportClickLanguage'] ?: tr("Go to the support thread");
+		$template['display_faSupport'] = $template['Support'] ? "<a class='ca_tooltip ca_fa-support appIcons' href='{$template['Support']}' target='_blank' title='$supportText'></a>" : "";
 		$template['display_faThumbsUp'] = $template['Recommended'] ? "<span class='ca_thumbsup appIcons ca_tooltip'></span>" : "";
 		if ( ! $template['Compatible'] ) unset($template['display_faThumbsUp']);
 
@@ -650,7 +651,8 @@ function getPopupDescription($appNumber) {
 
 	if ( $template['Support'] || $template['Project'] ) {
 		$installLine .= "<span style='float:right;'>";
-		$installLine .= $template['Support'] ? "<a class='appIconsPopUp ca_fa-support' href='".$template['Support']."' target='_blank'>&nbsp;&nbsp;".tr("Support")."</strong></a>" : "";
+		$supportText = $template['SupportLanguage'] ?: tr("Support");
+		$installLine .= $template['Support'] ? "<a class='appIconsPopUp ca_fa-support' href='".$template['Support']."' target='_blank'>&nbsp;&nbsp;$supportText</strong></a>" : "";
 		$installLine .= $template['Project'] ? "<a class='appIconsPopUp ca_fa-project' href='".$template['Project']."' target='_blank'>&nbsp;&nbsp;".tr("Project")."</strong></a>" : "";
 		$installLine .= "</span>";
 	}
