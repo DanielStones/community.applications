@@ -180,7 +180,7 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 			$warningColor = "warning-yellow";
 		}
 		if ( ! $template['Compatible'] && ! $template['UnknownCompatible'] ) {
-			$template['display_compatible'] .= tr("This application is not compatible with your version of unRaid")."<br>";
+			$template['display_compatible'] .= tr("This application is not compatible with your version of Unraid")."<br>";
 			$warningColor = "warning-red";
 		}
 		if ( $template['Blacklist'] ) {
