@@ -647,6 +647,11 @@ function getPopupDescription($appNumber) {
 				$installLine .= "<a class='ca_tooltip appIconsPopUp ca_fa-update languageInstall' onclick=installPlugin('$countryCode');> ".tr("Update Language Pack")."</a>";
 			}
 		}
+		if ( $countryCode !== "en_US" ) {
+			$template['Changes'] = "<center><a href='https://github.com/unraid/lang-$countryCode/commits/master' target='_blank'>Click here to view the language changelog</a></center>";
+		} else {
+			unset($template['Changes']);
+		}
 	}
 
 	if ( $template['Support'] || $template['Project'] ) {
@@ -694,11 +699,12 @@ function getPopupDescription($appNumber) {
 			$templateDescription .= "<div><canvas id='totalDownloadChart' class='caChart' height=1 width=3></canvas></div>";
 		}
 	}
-
-	$changeLogMessage = "Note: not all ";
-	$changeLogMessage .= $template['PluginURL'] || $template['Language'] ? "authors" : "maintainers";
-	$changeLogMessage .= " keep up to date on change logs</font></div><br>";
-	$changeLogMessage = "<div class='ca_center'><font size='0'>".tr($changeLogMessage)."</font></div><br>";
+	if ( ! $countryCode ) {
+		$changeLogMessage = "Note: not all ";
+		$changeLogMessage .= $template['PluginURL'] || $template['Language'] ? "authors" : "maintainers";
+		$changeLogMessage .= " keep up to date on change logs</font></div><br>";
+		$changeLogMessage = "<div class='ca_center'><font size='0'>".tr($changeLogMessage)."</font></div><br>";
+	}
 	if ( trim($template['Changes']) ) {
 		if ( $appNumber != "ca" && $appNumber != "ca_update" )
 			$templateDescription .= "</div>";
