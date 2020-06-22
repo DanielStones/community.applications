@@ -648,7 +648,7 @@ function getPopupDescription($appNumber) {
 			}
 		}
 		if ( $countryCode !== "en_US" ) {
-			$template['Changes'] = "<center><a href='https://github.com/unraid/lang-$countryCode/commits/master' target='_blank'>Click here to view the language changelog</a></center>";
+			$template['Changes'] = "<center><a href='https://github.com/unraid/lang-$countryCode/commits/master' target='_blank'>".tr("Click here to view the language changelog")."</a></center>";
 		} else {
 			unset($template['Changes']);
 		}
