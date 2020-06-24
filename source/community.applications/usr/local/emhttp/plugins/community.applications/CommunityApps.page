@@ -1347,8 +1347,11 @@ function post(options,callback) {
 					retval = "<?tr("No data was returned.  It is probable that another browser session has rebooted your server.  Reloading this browser tab will probably fix this error")?>";
 				}
 				if ( retval.indexOf("<!DOCTYPE html>") === 0 ) {
+					myCloseSpinner();
+					myCloseAlert();
+					alert("<?=tr("You have been logged out")?>");
 					window.location.reload();
-				} else {
+				}	else {
 					$("#templates_content").html(sprintf(tr("Something really wrong went on during %s"),options.action)+"<br><?tr("Post the ENTIRE contents of this message in the Community Applications Support Thread")?><br><br>"+retval.escapeHTML());
 					throw new Error("Something went badly wrong!");
 				}
