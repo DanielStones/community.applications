@@ -1349,7 +1349,7 @@ function post(options,callback) {
 				if ( retval.indexOf("<!DOCTYPE html>") === 0 ) {
 					myCloseSpinner();
 					myCloseAlert();
-					alert("<?=tr("You have been logged out")?>");
+					alert("<?tr("You have been logged out")?>");
 					window.location.reload();
 				}	else {
 					$("#templates_content").html(sprintf(tr("Something really wrong went on during %s"),options.action)+"<br><?tr("Post the ENTIRE contents of this message in the Community Applications Support Thread")?><br><br>"+retval.escapeHTML());

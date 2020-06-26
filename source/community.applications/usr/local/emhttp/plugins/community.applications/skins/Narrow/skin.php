@@ -526,6 +526,8 @@ function getPopupDescription($appNumber) {
 		$templateDescription .= "</td></tr>";
 		$countryCode = $template['LanguageDefault'] ? "en_US" : $template['LanguagePack'];
 		$templateDescription .= "<tr><td>".tr("Country Code:")."</td><td>$countryCode</td></tr>";
+		if ( ! $countryCode || $countryCode == "en_US" )
+			$templateDescription .= "<tr><td></td><td>&nbsp;</td></tr>";
 	}
 	if ( filter_var($template['multiLanguage'],FILTER_VALIDATE_BOOLEAN) )
 		$templateDescription .= "<tr><td>".tr("Multi Language Support")."</td><td>".tr("Yes")."</td></tr>";
