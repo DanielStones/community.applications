@@ -262,7 +262,7 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 				$template['display_languageInstallIcon'] = "<a class='ca_tooltip appIcons ca_fa-install languageInstall' title='{$template['InstallLanguage']}' data-language='$countryCode' data-language_xml='{$template['TemplateURL']}'></a>";
 			}
 			if ( $countryCode !== "en_US" ) {
-				$template['ca_LanguageDisclaimer'] = "<span class='ca_LanguageDisclaimer ca_staticTips ca_fa-warning warning-yellow ' title='{$template['disclaimLine1']}'> {$template['disclaimLanguage']}</span>";
+				$template['ca_LanguageDisclaimer'] = "<span class='ca_LanguageDisclaimer ca_staticTips ca_fa-warning warning-yellow ' title='{$template['disclaimLine1']}'>&nbsp;{$template['disclaimLanguage']}</span>";
 			}
 			$template['display_author'] = languageAuthorList($template['Author']);
 		}
