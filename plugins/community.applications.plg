@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "community.applications">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2020.06.26">
-<!ENTITY md5       "425f8ac7e5f2296091ca96432177e0f1">
+<!ENTITY version   "2020.07.08">
+<!ENTITY md5       "0e9a324be60ea4ac358e29fbf35a46e1">
 <!ENTITY launch    "Apps">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/community.applications">
@@ -13,6 +13,9 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.4.0" support="https://lime-technology.com/forums/topic/38582-plug-in-community-applications/" icon="users">
 
 <CHANGES>
+###2020.07.08
+- Fixed: CSS changes on multi-language disclaimers appearing off-screen / cut-off
+
 ###2020.06.26
 - Fixed: Watermark issue on en_US language when template authoring mode is not enabled
 - Fixed: Various icon inconsistencies in previous apps after reinstalling a single app
