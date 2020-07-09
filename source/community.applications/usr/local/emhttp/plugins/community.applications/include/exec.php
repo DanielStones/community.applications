@@ -1195,6 +1195,8 @@ function getConvertedTemplates() {
 function appOfDay($file) {
 	global $caPaths,$caSettings,$sortOrder;
 
+	$info = getRunningContainers();
+	
 	switch ($caSettings['startup']) {
 		case "random":
 			$oldAppDay = @filemtime($caPaths['appOfTheDay']);
@@ -1213,10 +1215,10 @@ function appOfDay($file) {
 				if ( $flag )
 					unset($app);
 			}
-			if ( ! $app ) {
+			if ( ! $appOfDay ) {
 				shuffle($file);
 				foreach ($file as $template) {
-					if ( ! checkRandomApp($template) ) continue;
+					if ( ! checkRandomApp($template,$info,true) ) continue;
 					$appOfDay[] = $template['ID'];
 					if (count($appOfDay) == 25) break;
 				}
@@ -1285,7 +1287,7 @@ function appOfDay($file) {
 #####################################################
 # Checks selected app for eligibility as app of day #
 #####################################################
-function checkRandomApp($test) {
+function checkRandomApp($test,$info=array(),$random=false) {
 	global $caSettings;
 
 	if ( $test['Name'] == "Community Applications" )  return false;
@@ -1294,7 +1296,28 @@ function checkRandomApp($test) {
 	if ( ! $test['Compatible'] && $caSettings['hideIncompatible'] == "true" ) return false;
 	if ( $test['Blacklist'] )                         return false;
 	if ( $test['Deprecated'] && ( $caSettings['hideDeprecated'] == "true" ) ) return false;
-
+	if ( $random ) {
+		$return = ! appInstalled($test,$info);
+		if (! $return) {
+			exec("logger {$test['Repository']}");
+		}
+		
+		return ! appInstalled($test,$info);
+	}
 	return true;
+}
+function appInstalled($template,$info) {
+	if ($template['Plugin'])
+		return checkInstalledPlugin($template);
+	if ($test['Language'])
+		return is_dir("/usr/local/emhttp/languages/lang-{$template['LanguagePack']}");
+	
+	$name = $template['SortName'];
+	$selected = $info[$name]['template'];
+	$tmpRepo = strpos($template['Repository'],":") ? $template['Repository'] : "{$template['Repository']}:latest";
+	if ( ! strpos($tmpRepo,"/") )
+		$tmpRepo = "library/$tmpRepo";
+	
+	return $selected ? ($tmpRepo == $info[$name]['repository']) : false;
 }
 ?>
