@@ -1306,18 +1306,5 @@ function checkRandomApp($test,$info=array(),$random=false) {
 	}
 	return true;
 }
-function appInstalled($template,$info) {
-	if ($template['Plugin'])
-		return checkInstalledPlugin($template);
-	if ($test['Language'])
-		return is_dir("/usr/local/emhttp/languages/lang-{$template['LanguagePack']}");
-	
-	$name = $template['SortName'];
-	$selected = $info[$name]['template'];
-	$tmpRepo = strpos($template['Repository'],":") ? $template['Repository'] : "{$template['Repository']}:latest";
-	if ( ! strpos($tmpRepo,"/") )
-		$tmpRepo = "library/$tmpRepo";
-	
-	return $selected ? ($tmpRepo == $info[$name]['repository']) : false;
-}
+
 ?>
