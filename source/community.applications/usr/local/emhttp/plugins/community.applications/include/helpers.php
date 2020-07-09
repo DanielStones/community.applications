@@ -382,7 +382,23 @@ function checkInstalledPlugin($template) {
 	if ( ! $dupeList[$pluginName] ) return true;
 	return strtolower(trim(plugin("pluginURL","/var/log/plugins/$pluginName"))) == strtolower(trim($template['PluginURL']));
 }
-
+#################################
+# Checks if an app is installed #
+#################################
+function appInstalled($template,$info) {
+	if ($template['Plugin'])
+		return checkInstalledPlugin($template);
+	if ($test['Language'])
+		return is_dir("/usr/local/emhttp/languages/lang-{$template['LanguagePack']}");
+	
+	$name = $template['SortName'];
+	$selected = $info[$name]['template'];
+	$tmpRepo = strpos($template['Repository'],":") ? $template['Repository'] : "{$template['Repository']}:latest";
+	if ( ! strpos($tmpRepo,"/") )
+		$tmpRepo = "library/$tmpRepo";
+	
+	return $selected ? ($tmpRepo == $info[$name]['repository']) : false;
+}
 ###########################################################
 # Returns a string with only alphanumeric characters only #
 ###########################################################
