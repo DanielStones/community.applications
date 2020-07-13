@@ -228,6 +228,7 @@ $(function(){
 	$(".multi_installButton").click(function()  { installMulti(); });
 	$(".multi_installClear").click(function()   { clearMultiInstall(); });
 	$(".multi_deleteButton").click(function()   { deleteMulti(); });
+	$(".multi_installAll").click(function()     { selectAllPrevious(); enableMultiInstall(); });
 	$(".startupButton").click(function()        { updateContent(this); });
 	$("#sortIcon").click(function() {
 		if ( isIconEnabled("#sortIcon") ) {
@@ -996,7 +997,14 @@ function xmlInstall(type,xml) {
 function makePlural(string,count) {
 	return ( (count > 1) || (count == 0) ) ? string + "s" : string;
 }
-
+function selectAllPrevious() {
+	console.log("here");
+	$(".ca_multiselect").each(function() {
+		$(this).prop("checked",true);
+	});
+	getSelectedApps();
+}
+		
 function getSelectedApps() {
 	if ( data.selected ) {
 		var selected = JSON.parse(data.selected);
