@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "community.applications">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2020.07.08">
-<!ENTITY md5       "0e9a324be60ea4ac358e29fbf35a46e1">
+<!ENTITY version   "2020.07.13">
+<!ENTITY md5       "b2a1a967774ed138f1209343914ce6ab">
 <!ENTITY launch    "Apps">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/community.applications">
@@ -13,6 +13,11 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.4.0" support="https://lime-technology.com/forums/topic/38582-plug-in-community-applications/" icon="users">
 
 <CHANGES>
+###2020.07.13
+- Changed: Don't show installed apps within Random Section
+- Changed: Revisions on scripts to be more dynamix compliant on Multi-Language
+- Added: Select All Apps On Page while in Previous Apps section
+
 ###2020.07.08
 - Fixed: CSS changes on multi-language disclaimers appearing off-screen / cut-off
 
