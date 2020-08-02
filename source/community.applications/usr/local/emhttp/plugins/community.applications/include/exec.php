@@ -69,27 +69,27 @@ switch ($_POST['action']) {
 ######################################################################################
 case 'get_content':
 	$filter      = getPost("filter",false);
-	$category    = "/".getPost("category",false)."/i";
+	$category    = getPost("category",false);
 	$newApp      = filter_var(getPost("newApp",false),FILTER_VALIDATE_BOOLEAN);
 	$sortOrder   = getSortOrder(getPostArray("sortOrder"));
 	$caSettings['startup'] = getPost("startupDisplay",false);
 
 	switch ($category) {
-		case "/PRIVATE/i":
+		case "PRIVATE":
 			$category = false;
 			$displayPrivates = true;
 			break;
-		case "/DEPRECATED/i":
+		case "DEPRECATED":
 			$category = false;
 			$displayDeprecated = true;
 			$noInstallComment = tr("Deprecated Applications are able to still be installed if you have previously had them installed. New installations of these applications are blocked unless you enable Display Deprecated Applications within CA's General Settings")."<br><br>";
 			break;
-		case "/BLACKLIST/i":
+		case "BLACKLIST":
 			$category = false;
 			$displayBlacklisted = true;
 			$noInstallComment = tr("The following applications are blacklisted.  CA will never allow you to install or reinstall these applications")."<br><br>";
 			break;
-		case "/INCOMPATIBLE/i":
+		case "INCOMPATIBLE":
 			$displayIncompatible = true;
 			$noInstallComment = tr("While highly not recommended to do, incompatible applications can be installed by enabling Display Incompatible Applications within CA's General Settings")."<br><br>";
 			break;
@@ -104,7 +104,7 @@ case 'get_content':
 	$file = readJsonFile($caPaths['community-templates-info']);
 	if ( empty($file)) break;
 
-	if ( $category === "/NONE/i" ) {
+	if ( $category === "NONE" ) {
 		$displayApplications = array();
 		if ( count($file) > 200) {
 			$appsOfDay = appOfDay($file);
@@ -177,7 +177,7 @@ case 'get_content':
 		if ( ($newApp) && ($template['Date'] < $newAppTime) ) continue;
 		$template['NewApp'] = $newApp;
 
-		if ( $category && ! preg_match($category,$template['Category'])) continue;
+		if ( $category && stripos($template['Category'],$category) === false) continue;
 		if ( $displayPrivates && ! $template['Private'] ) continue;
 
 		if ($filter) {
