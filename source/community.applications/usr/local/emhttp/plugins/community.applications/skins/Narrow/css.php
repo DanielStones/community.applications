@@ -86,7 +86,7 @@ body.stop-scrolling{height:100%;overflow:auto}  /* disable SweetAlert killing th
 <?if ( $unRaid67 ):?>
 .popupTableAreaDocker::before{position:absolute;margin-left:20rem;font-family:'Unraid';content:'\e90b';font-size:10rem;color:rgba(43,43,43,0.10);z-index:-1;}
 <?endif;?>
-.ca_LanguageDisclaimer {cursor:pointer;display:table-caption;}
+.ca_LanguageDisclaimer {cursor:pointer;font-size:.9rem;}
 .ca_display_beta {font-size:1rem;color:#FF8C2F;}
 .ca_display_beta::after{content:"(BETA)"}
 .ca_iconArea {width:100%;height:8rem;margin:1rem;}

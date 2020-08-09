@@ -645,11 +645,11 @@ function getPopupDescription($appNumber) {
 				$installLine .= "<a class='ca_tooltip appIconsPopUp ca_fa-switchto' onclick=CAswitchLanguage('$countryCode');> {$template['SwitchLanguage']}</a>";
 			}
 		} else {
-			$installLine .= "<a class='ca_tooltip appIconsPopUp ca_fa-install languageInstall' onclick=installPlugin('{$template['TemplateURL']}');> {$template['InstallLanguage']}</a>";
+			$installLine .= "<br><a class='ca_tooltip appIconsPopUp ca_fa-install languageInstall' onclick=installPlugin('{$template['TemplateURL']}');> {$template['InstallLanguage']}</a>";
 		}
 		if ( file_exists("/var/log/plugins/lang-$countryCode.xml") ) {
 			if ( languageCheck($template) ) {
-				$installLine .= "<a class='ca_tooltip appIconsPopUp ca_fa-update languageInstall' onclick=installPlugin('$countryCode');> ".tr("Update Language Pack")."</a>";
+				$installLine .= "<br><a class='ca_tooltip appIconsPopUp ca_fa-update languageInstall' onclick=installPlugin('$countryCode');> {$template['UpdateLanguage']}</a>";
 			}
 		}
 		if ( $countryCode !== "en_US" ) {
@@ -660,7 +660,11 @@ function getPopupDescription($appNumber) {
 	}
 
 	if ( $template['Support'] || $template['Project'] ) {
-		$installLine .= "<span style='float:right;'>";
+		if ( ! $template['Language'] ) 
+			$installLine .= "<span style='float:right;'>";
+		else
+			$installLine .= "<br>";
+		
 		$supportText = $template['SupportLanguage'] ?: tr("Support");
 		$installLine .= $template['Support'] ? "<a class='appIconsPopUp ca_fa-support' href='".$template['Support']."' target='_blank'>&nbsp;&nbsp;$supportText</strong></a>" : "";
 		$installLine .= $template['Project'] ? "<a class='appIconsPopUp ca_fa-project' href='".$template['Project']."' target='_blank'>&nbsp;&nbsp;".tr("Project")."</strong></a>" : "";
@@ -732,7 +736,14 @@ function getPopupDescription($appNumber) {
 			$appInformation = str_replace("[","<",$appInformation);
 			$appInformation = str_replace("]",">",$appInformation);
 		}
-		$templateDescription .= "<div class='ca_center'><br><font size='4'><span class='ca_bold'>".tr("Change Log")."</span></div></font><br>$changeLogMessage$appInformation";
+		if ( ! $template['Language'] ) {
+			$templateDescription .= "<div class='ca_center'><br><font size='4'><span class='ca_bold'>".tr("Change Log")."</span></div></font><br>$changeLogMessage$appInformation";
+		} else {
+			$templateDescription .= "<div class='ca_center'><br><font size='4'>$appInformation</font></div>";
+		}
+		if ( $template['Language'] ) {
+			$templateDescription .= "<div class='ca_center'><br><font size='4'><a target='_blank' href='{$caPaths['LanguageErrors']}#$countryCode'>".tr("View Missing Translations")."</font></div>";
+		}
 	}
 
 	if (is_array($template['trendsDate']) ) {

@@ -54,4 +54,5 @@ $caPaths['disksINI']                            = "/var/local/emhttp/disks.ini";
 $caPaths['dynamixSettings']                     = "/boot/config/plugins/dynamix/dynamix.cfg";
 $caPaths['installedLanguages']                  = "/boot/config/plugins";
 $caPaths['dynamixUpdates']                      = "/tmp/plugins";
+$caPaths['LanguageErrors']                      = "https://squidly271.github.io/languageErrors.html";
 ?>
