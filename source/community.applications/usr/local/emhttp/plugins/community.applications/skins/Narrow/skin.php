@@ -259,7 +259,7 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 				$template['display_languageInstallIcon'] = "<a class='ca_tooltip appIcons ca_fa-install languageInstall' title='{$template['InstallLanguage']}' data-language='$countryCode' data-language_xml='{$template['TemplateURL']}'></a>";
 			}
 			if ( $countryCode !== "en_US" ) {
-				$template['ca_LanguageDisclaimer'] = "<span class='ca_LanguageDisclaimer ca_staticTips ca_fa-warning warning-yellow ' title='{$template['disclaimLine1']}'>&nbsp;{$template['disclaimLanguage']}</span>";
+				$template['ca_LanguageDisclaimer'] = "<a class='ca_LanguageDisclaimer ca_fa-warning warning-yellow' href='{$template['disclaimLineLink']}' title='{$template['disclaimLanguage']}' target='_blank'>&nbsp;{$template['disclaimLanguage']}</a>";
 			}
 			$template['display_author'] = languageAuthorList($template['Author']);
 		}
@@ -575,7 +575,7 @@ function getPopupDescription($appNumber) {
 		$templateDescription .= "<tr><td></td><td>".sprintf(tr("(As of %s)"),tr(date("F",$template['LastUpdateScan']),0).date(" j, Y  g:i a",$template['LastUpdateScan']),0)."</td></tr>";
 		$templateDescription .= "</td></tr>";
 	}
-	$templateDescription .= $template['disclaimLine1'] && ! $template['LanguageDefault'] ? "<tr><td></td><td><span class='ca_fa-warning warning-yellow'>  {$template['disclaimLine1']}</span></td></tr>" : "";
+	$templateDescription .= $template['disclaimLine1'] && ! $template['LanguageDefault'] ? "<tr><td></td><td><a class='ca_fa-warning warning-yellow popUpLink' href='{$template['disclaimLineLink']}' target='_blank'>{$template['disclaimLine1']}</a></td></tr>" : "";
 	$templateDescription .= "</table></div>";
 
 	$templateDescription .= "<div class='ca_center'><span class='popUpDeprecated'>";
@@ -733,7 +733,7 @@ function getPopupDescription($appNumber) {
 			$templateDescription .= "<div class='ca_center'><br><font size='4'>$appInformation</font></div>";
 		}
 		if ( $template['Language'] ) {
-			$templateDescription .= "<div class='ca_center'><br><font size='4'><a target='_blank' href='{$caPaths['LanguageErrors']}#$countryCode'>".tr("View Missing Translations")."</font></div>";
+			$templateDescription .= "<div class='ca_center'><br><font size='4'><a class='popUpLink' target='_blank' href='{$caPaths['LanguageErrors']}#$countryCode'>".tr("View Missing Translations")."</font></div>";
 		}
 	}
 

@@ -387,7 +387,7 @@ function setToolTip() {
 		triggerOpen:{mouseenter: true},
 		triggerClose:{click:true,scroll:true,mouseleave:true}
 	});
-	$('.ca_tooltip-warning,.ca_LanguageDisclaimer').tooltipster({
+	$('.ca_tooltip-warning').tooltipster({
 		contentAsHTML:true,
 		interactive:true,
 		trigger:'custom',

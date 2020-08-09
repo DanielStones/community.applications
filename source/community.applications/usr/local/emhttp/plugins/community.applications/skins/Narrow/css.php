@@ -87,6 +87,8 @@ body.stop-scrolling{height:100%;overflow:auto}  /* disable SweetAlert killing th
 .popupTableAreaDocker::before{position:absolute;margin-left:20rem;font-family:'Unraid';content:'\e90b';font-size:10rem;color:rgba(43,43,43,0.10);z-index:-1;}
 <?endif;?>
 .ca_LanguageDisclaimer {cursor:pointer;font-size:.9rem;}
+.ca_LanguageDisclaimer:hover {color:<?=$linkColor?>;}
+a.ca_LanguageDisclaimer {text-decoration:none;}
 .ca_display_beta {font-size:1rem;color:#FF8C2F;}
 .ca_display_beta::after{content:"(BETA)"}
 .ca_iconArea {width:100%;height:8rem;margin:1rem;}
@@ -225,6 +227,7 @@ a.ca_fa-delete{text-decoration:none;margin-left:1rem;}
 a.donate {text-decoration:none;font-style:italic;color:<?=$donateText?>;}
 .popup-donate {background:black;background: -webkit-linear-gradient(top, transparent 0%, rgba(0,0,0,0.4) 100%),-webkit-linear-gradient(left, lighten(<?=$donateBackground?>, 15%) 0%, <?=$donateBackground?> 50%, lighten(<?=$donateBackground?>, 15%) 100%);  background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%),              linear-gradient(to right, lighten(#E68321, 15%) 0%, #E68321 50%, lighten(#E68321, 15%) 100%);  background-position: 0 0;  background-size: 200% 100%;  border-radius: 15px;  color: #fff;  padding: 1px 10px 1px 10px;  text-shadow: 1px 1px 5px #666;}
 a.popup-donate {text-decoration:none;font-style:italic;color:white;}
+a.popup-donate:hover {background-color:<?=$unRaid66color?>;}
 <?if ( $theme == "azure" ):?>
 .searchSubmit{font-family:'FontAwesome';width:2.9rem;height:2.9rem;border:.1rem solid #dadada;border-radius:4px 4px 4px 4px;font-size:1.1rem;position:relative; top:-.7rem;padding:0px .2rem;background:transparent;border:none;cursor:pointer;}
 #searchBox{margin-left:1rem;margin-right:0;position:relative;top:-.6rem;border:none;}
@@ -247,6 +250,7 @@ a.popup-donate {text-decoration:none;font-style:italic;color:white;}
 <?endif;?>
 .popUpLink {cursor:pointer;}
 a.popUpLink {text-decoration:none;}
+a.popUpLink:hover {color:<?=$unRaid66color?>;}
 .popUpDeprecated {color:#FF8C2F;}
 i.popupIcon {color:#626868;font-size:3.5rem;padding-left:1rem;width:4.8rem}
 img.popupIcon {width:4.8rem;height:4.8rem;padding:0.3rem;border-radius:1rem 1rem 1rem 1rem;}
