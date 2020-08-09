@@ -148,19 +148,22 @@ a.ca_appPopup {text-decoration:none;cursor:pointer;}
 input[type=checkbox] {width:2rem;height:2rem;margin-right:1rem;margin-top:-.5rem;margin-left:0rem;}
 .enabledIcon {cursor:pointer;color:<?=$unRaid66color?>;}
 .disabledIcon {color:#040404;font-size:2.5rem;}
-.pinned {font-size:2rem;cursor:pointer;padding-left:.5rem;padding-right:.5rem;cursor:pointer;color:<?=$unRaid66color?>;padding:.3rem;}
+.pinned {font-size:2rem;cursor:pointer;padding-left:.5rem;padding-right:.5rem;cursor:pointer;color:#1fa67a;padding:.3rem;}
 .unpinned {font-size:2rem;cursor:pointer;padding-left:.5rem;padding-right:.5rem;cursor:pointer;padding:.3rem;}
 .pinned::after {content:"\f08d";font-family:fontAwesome;}
 .unpinned::after {content:"\f08d";font-family:fontAwesome;display:inline-block;-webkit-transform: rotate(20deg);-moz-transform: rotate(20deg);-ms-transform: rotate(20deg); -o-transform: rotate(20deg);  transform: rotate(20deg);}
 .appIcons {font-size:2.3rem;color:inherit;cursor:pointer;padding-left:.5rem;padding-right:.5rem;}
-.appIcons:hover {text-decoration:none;}
+.appIcons:hover {text-decoration:none;color:<?=$unRaid66color?>;}
+.pinned:hover {text-decoration:none;color:<?=$unRaid66color?>;}
+.unpinned:hover {text-decoration:none;color:<?=$unRaid66color?>;}
 a.appIcons {text-decoration:none;}
 .appIconsPopUp {font-size:1.1rem;cursor:pointer;padding-left:.5rem;padding-right:.5rem;}
-.appIconsPopUp:hover {text-decoration:none;}
+.appIconsPopUp:hover {text-decoration:none;color:<?=$unRaid66color?>;}
 .myReadmore {text-align:center;}
 .myReadmoreButton {color:blue;}
 .supportLink {color:inherit;padding-left:.5rem;padding-right:.5rem;}
 .donateLink {font-size:1.2rem;}
+.donate:hover {text-decoration:none;background-color:<?=$unRaid66color?>;}
 .dockerHubStar {font-size:1rem;}
 .dockerDisabled {display:none;}
 .separateOfficial {text-align:center;width:auto;font-size:2.5rem;}
@@ -170,6 +173,7 @@ a.appIcons {text-decoration:none;}
 <?if ($unRaid67):?>
 .ca_fa-delete {color:#882626;font-size:1.5rem;cursor:pointer;}
 .ca_fa-delete::before {content:"\e92f";font-family:Unraid;}
+.ca_fa-delete:hover {color:<?=$unRaid66color?>;}
 .ca_fa-project::before {content:"\e953";font-family:Unraid;}
 .dockerHubStar::before{content:"\e95a";font-family:UnRaid;}
 <?else:?>
