@@ -264,6 +264,7 @@ a.appIconsPopUp { text-decoration:none;color:inherit;}
 .caChart {display:none;border:1px solid #c2c8c8;border-radius:4px 4px 4px 4px;}
 .caHighlight {color:#FF0000;font-weight:bold;}
 .caChangeLog {cursor:pointer;}
+.caInstallLinePopUp {display:flex;flex-wrap:wrap;justify-content:space-between;}
 .awesomplete [hidden] {display: none;}
 .awesomplete .visually-hidden {position: absolute;clip: rect(0, 0, 0, 0);}
 .awesomplete {display: inline-block;position: relative;color: red;}

@@ -599,22 +599,24 @@ function getPopupDescription($appNumber) {
 	if ( ! $Displayed )
 		$templateDescription .= "<div><span class='ca_fa-warning warning-yellow'></span>&nbsp; <font size='1'>".tr("Another browser tab or device has updated the displayed templates.  Some actions are not available")."</font></div>";
 
+	$installLine = "<div class='caInstallLinePopUp'>";
+
 	if ( ! $template['Language'] ) {
 		if ( $Displayed && ! $template['NoInstall'] && ! $caSettings['NoInstalls']) {
 			if ( ! $template['Plugin'] ) {
 				if ( $caSettings['dockerRunning'] ) {
 					if ( $selected ) {
-						$installLine .= $caSettings['defaultReinstall'] == "true" ? "<a class='appIconsPopUp ca_fa-install xmlInstall' onclick='xmlInstall(&quot;default&quot;,&quot;".addslashes($template['Path'])."&quot;);'>&nbsp;&nbsp;".tr("Reinstall (default)")."</a>" : "";
-						$installLine .= "<a class='appIconsPopUp ca_fa-edit' onclick='xmlInstall(&quot;edit&quot;,&quot;".addslashes($info[$name]['template'])."&quot;);'>&nbsp;&nbsp;".tr("Edit")."</a>";
+						$installLine .= $caSettings['defaultReinstall'] == "true" ? "<div><a class='appIconsPopUp ca_fa-install xmlInstall' onclick='xmlInstall(&quot;default&quot;,&quot;".addslashes($template['Path'])."&quot;);'> ".tr("Reinstall (default)")."</a></div>" : "";
+						$installLine .= "<div><a class='appIconsPopUp ca_fa-edit' onclick='xmlInstall(&quot;edit&quot;,&quot;".addslashes($info[$name]['template'])."&quot;);'> ".tr("Edit")."</a></div>";
 						if ( $info[$name]['url'] && $info[$name]['running'] ) {
-							$installLine .= "<a class='appIconsPopUp ca_fa-globe' href='{$info[$name]['url']}' target='_blank'>&nbsp;&nbsp;".tr("WebUI")."</a>";
+							$installLine .= "<div><a class='appIconsPopUp ca_fa-globe' href='{$info[$name]['url']}' target='_blank'> ".tr("WebUI")."</a></div>";
 						}
 					} else {
 						if ( $template['InstallPath'] )
-							$installLine .= "<a class='appIconsPopUp ca_fa-install' onclick='xmlInstall(&quot;user&quot;,&quot;".addslashes($template['InstallPath'])."&quot;);'>&nbsp;&nbsp;".tr("Reinstall")."</a>";
+							$installLine .= "<div><a class='appIconsPopUp ca_fa-install' onclick='xmlInstall(&quot;user&quot;,&quot;".addslashes($template['InstallPath'])."&quot;);'> ".tr("Reinstall")."</a></div>";
 						else {
-							$install = "<a class='appIconsPopUp ca_fa-install' onclick='xmlInstall(&quot;default&quot;,&quot;".addslashes($template['Path'])."&quot;);'>&nbsp;&nbsp;".tr("Install")."</a>";
-							$installLine .= $template['BranchID'] ? "<a style='cursor:pointer' class='appIconsPopUp ca_fa-install' onclick='$(&quot;#branch&quot;).show(500);'>&nbsp;&nbsp;".tr("Install")."</a>" : $install;
+							$install = "<div><a class='appIconsPopUp ca_fa-install' onclick='xmlInstall(&quot;default&quot;,&quot;".addslashes($template['Path'])."&quot;);'> ".tr("Install")."</a></div>";
+							$installLine .= $template['BranchID'] ? "<div><a style='cursor:pointer' class='appIconsPopUp ca_fa-install' onclick='$(&quot;#branch&quot;).show(500);'> ".tr("Install")."</a></div>" : $install;
 						}
 					}
 				}
@@ -622,10 +624,10 @@ function getPopupDescription($appNumber) {
 				if ( file_exists("/var/log/plugins/$pluginName") ) {
 					$pluginSettings = $pluginName == "community.applications.plg" ? "ca_settings" : plugin("launch","/var/log/plugins/$pluginName");
 					if ( $pluginSettings )
-						$installLine .= "<a class='appIconsPopUp ca_fa-pluginSettings' href='/Apps/$pluginSettings' target='$tabMode'>&nbsp;&nbsp;".tr("Settings")."</a>";
+						$installLine .= "<div><a class='appIconsPopUp ca_fa-pluginSettings' href='/Apps/$pluginSettings' target='$tabMode'> ".tr("Settings")."</a></div>";
 				} else {
 					$buttonTitle = $template['InstallPath'] ? tr("Reinstall") : tr("Install");
-					$installLine .= "<a style='cursor:pointer' class='appIconsPopUp ca_fa-install pluginInstall' onclick=installPlugin('".$template['PluginURL']."');>&nbsp;&nbsp;$buttonTitle</a>";
+					$installLine .= "<div><a style='cursor:pointer' class='appIconsPopUp ca_fa-install pluginInstall' onclick=installPlugin('{$template['PluginURL']}');> $buttonTitle</a></div>";
 				}
 			}
 		}
@@ -638,18 +640,17 @@ function getPopupDescription($appNumber) {
 			return is_dir("/usr/local/emhttp/languages/$v");
 		});
 		$installedLanguages[] = "en_US";
-
 		$currentLanguage = (is_dir("/usr/local/emhttp/languages/$currentLanguage") ) ? $currentLanguage : "en_US";
 		if ( in_array($countryCode,$installedLanguages) ) {
 			if ( $currentLanguage != $countryCode ) {
-				$installLine .= "<a class='ca_tooltip appIconsPopUp ca_fa-switchto' onclick=CAswitchLanguage('$countryCode');> {$template['SwitchLanguage']}</a>";
+				$installLine .= "<div><a class='ca_tooltip appIconsPopUp ca_fa-switchto' onclick=CAswitchLanguage('$countryCode');> {$template['SwitchLanguage']}</a></div>";
 			}
 		} else {
-			$installLine .= "<br><a class='ca_tooltip appIconsPopUp ca_fa-install languageInstall' onclick=installPlugin('{$template['TemplateURL']}');> {$template['InstallLanguage']}</a>";
+			$installLine .= "<div><a class='ca_tooltip appIconsPopUp ca_fa-install languageInstall' onclick=installPlugin('{$template['TemplateURL']}');> {$template['InstallLanguage']}</a></div>";
 		}
 		if ( file_exists("/var/log/plugins/lang-$countryCode.xml") ) {
 			if ( languageCheck($template) ) {
-				$installLine .= "<br><a class='ca_tooltip appIconsPopUp ca_fa-update languageInstall' onclick=installPlugin('$countryCode');> {$template['UpdateLanguage']}</a>";
+				$installLine .= "<div><a class='ca_tooltip appIconsPopUp ca_fa-update languageInstall' onclick=installPlugin('$countryCode');> {$template['UpdateLanguage']}</a></div>";
 			}
 		}
 		if ( $countryCode !== "en_US" ) {
@@ -660,19 +661,15 @@ function getPopupDescription($appNumber) {
 	}
 
 	if ( $template['Support'] || $template['Project'] ) {
-		if ( ! $template['Language'] ) 
-			$installLine .= "<span style='float:right;'>";
-		else
-			$installLine .= "<br>";
-		
 		$supportText = $template['SupportLanguage'] ?: tr("Support");
-		$installLine .= $template['Support'] ? "<a class='appIconsPopUp ca_fa-support' href='".$template['Support']."' target='_blank'>&nbsp;&nbsp;$supportText</strong></a>" : "";
-		$installLine .= $template['Project'] ? "<a class='appIconsPopUp ca_fa-project' href='".$template['Project']."' target='_blank'>&nbsp;&nbsp;".tr("Project")."</strong></a>" : "";
-		$installLine .= "</span>";
+		$installLine .= $template['Support'] ? "<div><a class='appIconsPopUp ca_fa-support' href='".$template['Support']."' target='_blank'> $supportText</strong></a></div>" : "";
+		$installLine .= $template['Project'] ? "<div><a class='appIconsPopUp ca_fa-project' href='".$template['Project']."' target='_blank'> ".tr("Project")."</strong></a></div>" : "";
 	}
 
+	$installLine .= "</div>";
+
 	if ( $installLine ) {
-		$templateDescription .= "$installLine<br>";
+		$templateDescription .= "$installLine";
 		if ($template['BranchID']) {
 			$templateDescription .= "<span id='branch' style='display:none;'>";
 			$templateDescription .= formatTags($template['ID'],"popup");
