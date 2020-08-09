@@ -530,7 +530,7 @@ function doSearch(button,newSearch) {
 	}
 	data.docker = "";
 	data.section = "AppStore";
-	filter = filter.replace(/[^a-z0-9-]/gi,' ')
+//	filter = filter.replace(/[^a-z0-9-]/gi,' ')
 	filter = $.trim(filter);
 	$('#searchBox').val(filter);
 	$(".multi_installDiv").hide();

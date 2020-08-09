@@ -250,7 +250,7 @@ function fixAttributes(&$template,$attribute) {
 
 	if ( $template[$attribute] ) {
 		foreach ($template[$attribute] as $tempArray)
-			$tempArray2[] = $tempArray['value'] ? array('@attributes'=>$tempArray['@attributes'],'@value'=>$tempArray['value']) : array('@attributes'=>$tempArray['@attributes']);
+			$tempArray2[] = isset($tempArray['value']) ? array('@attributes'=>$tempArray['@attributes'],'@value'=>$tempArray['value']) : array('@attributes'=>$tempArray['@attributes']);
 		$template[$attribute] = $tempArray2;
 	}
 }
@@ -343,7 +343,7 @@ function filterMatch($filter,$searchArray,$exact=true) {
 	$filterwords = explode(" ",$filter);
 	foreach ( $filterwords as $testfilter) {
 		foreach ($searchArray as $search) {
-			if ( @preg_match("#$testfilter#i",str_replace(" ","",$search)) ) {
+			if ( stripos(str_replace(" ","",$search),$testfilter) !== false ) {
 				$foundword++;
 				break;
 			}
