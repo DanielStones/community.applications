@@ -75,13 +75,7 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 		$appName = str_replace(" ","",$template['SortName']);
 		$ID = $template['ID'];
 		$template['ModeratorComment'] .= $template['CAComment'];
-/* 		$selected = $info[$name]['template'];
-		$tmpRepo = strpos($template['Repository'],":") ? $template['Repository'] : "{$template['Repository']}:latest";
-		if ( ! strpos($tmpRepo,"/") )
-			$tmpRepo = "library/$tmpRepo";
 
-		$selected = $selected ? ($tmpRepo == $info[$name]['repository']) : false;
-*/
 		$selected = appInstalled($template,$info);
 		$selected = $template['Uninstall'] ? true : $selected;
 
