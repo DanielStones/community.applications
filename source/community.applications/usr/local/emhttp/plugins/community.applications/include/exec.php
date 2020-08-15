@@ -849,12 +849,31 @@ case 'get_categories':
 		$cat = "<span class='ca_fa-warning'></span> Category list N/A<br><br>";
 		break;
 	} else {
+		if ($translationsAllowed) {
+			$categories[] = array("Des"=>"Language","Cat"=>"Language:");
+		}
 		foreach ($categories as $category) {
-			$cat .= "<li class='categoryMenu caMenuItem' data-category='{$category['Cat']}'>".tr("{$category['Des']}")."</li>";
+			$category['Des'] = tr($category['Des']);
+			if ( is_array($category['Sub']) ) {
+				unset($subCat);
+				foreach ($category['Sub'] as $subcategory) {
+					$subcategory['Des'] = tr($subcategory['Des']);
+					$subCat[] = $subcategory;
+				}
+				$category['Sub'] = $subCat;
+			}
+			$newCat[] = $category;
+		}
+		$sortOrder['sortBy'] = "Des";
+		$sortOrder['sortDir'] = "Up";
+		usort($newCat,"mySort"); // Sort it alphabetically according to the language.  May not work right in non-roman charsets
+
+		foreach ($newCat as $category) {
+			$cat .= "<li class='categoryMenu caMenuItem' data-category='{$category['Cat']}'>".$category['Des']."</li>";
 			if (is_array($category['Sub'])) {
 				$cat .= "<ul class='subCategory'>";
 				foreach($category['Sub'] as $subcategory) {
-					$cat .= "<li class='categoryMenu caMenuItem' data-category='{$subcategory['Cat']}'>".tr("{$subcategory['Des']}")."</li>";
+					$cat .= "<li class='categoryMenu caMenuItem' data-category='{$subcategory['Cat']}'>".$subcategory['Des']."</li>";
 				}
 				$cat .= "</ul>";
 			}

@@ -55,4 +55,6 @@ $caPaths['dynamixSettings']                     = "/boot/config/plugins/dynamix/
 $caPaths['installedLanguages']                  = "/boot/config/plugins";
 $caPaths['dynamixUpdates']                      = "/tmp/plugins";
 $caPaths['LanguageErrors']                      = "https://squidly271.github.io/languageErrors.html";
+$caPaths['CA_languageBase']                     = "https://raw.githubusercontent.com/Squidly271/AppFeed/master/languages/";
+
 ?>

@@ -382,10 +382,10 @@ function displaySearchResults($pageNumber) {
 # Generate the display for the popup #
 ######################################
 function getPopupDescription($appNumber) {
-	global $caSettings, $caPaths;
+	global $caSettings, $caPaths, $language;
 
 	require_once "webGui/include/Markdown.php";
-
+  
 	$unRaidVars = parse_ini_file($caPaths['unRaidVars']);
 	$dockerVars = parse_ini_file($caPaths['docker_cfg']);
 	$caSettings = parse_plugin_cfg("community.applications");
@@ -437,6 +437,19 @@ function getPopupDescription($appNumber) {
 
 	$ID = $template['ID'];
 
+	// Hack the system so that language's popups always appear in the appropriate language
+	if ( $template['Language'] ) {
+		$countryCode = $template['LanguageDefault'] ? "en_US" : $template['LanguagePack'];
+		if ( $countryCode !== "en_US" ) {
+			if ( ! is_file("{$caPaths['tempFiles']}/CA_language-$countryCode") ) {
+				download_url("{$caPaths['CA_languageBase']}$countryCode","{$caPaths['tempFiles']}/CA_language-$countryCode");
+			}
+			$language = is_file("{$caPaths['tempFiles']}/CA_language-$countryCode") ? @parse_lang_file("{$caPaths['tempFiles']}/CA_language-$countryCode") : [];
+		} else {
+			$language = [];
+		}
+	}
+	
 	$donatelink = $template['DonateLink'];
 	if ( $donatelink ) {
 		$donatetext = $template['DonateText'];
@@ -521,7 +534,6 @@ function getPopupDescription($appNumber) {
 		if ( $template['LanguageLocal'] )
 			$templateDescription .= " - {$template['LanguageLocal']}";
 		$templateDescription .= "</td></tr>";
-		$countryCode = $template['LanguageDefault'] ? "en_US" : $template['LanguagePack'];
 		$templateDescription .= "<tr><td>".tr("Country Code:")."</td><td>$countryCode</td></tr>";
 		if ( ! $countryCode || $countryCode == "en_US" )
 			$templateDescription .= "<tr><td></td><td>&nbsp;</td></tr>";
