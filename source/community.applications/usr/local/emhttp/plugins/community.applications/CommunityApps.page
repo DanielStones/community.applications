@@ -1451,11 +1451,12 @@ function CAswitchLanguage(language) {
 		var oldlanguage = '<?=$locale?>';
 	else
 		var oldlanguage = "";
-
+		
+	data.searchActive = true; // so the system doesn't resort
+	saveState();
 	$.cookie('locale',oldlanguage,{path:'/'}); // save the previous locale
 	post({action:'switchLanguage',language:language},function(result) {
-		data.searchActive = true; // so the system doesn't resort
-		saveState();
+
 		$.cookie("ca_languageSwitch","switched",{expires:365,path:'/'});
 		myCloseSpinner();
 		window.location.reload();
