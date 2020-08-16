@@ -2,8 +2,8 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "community.applications">
 <!ENTITY author    "Andrew Zawadzki">
-<!ENTITY version   "2020.08.09">
-<!ENTITY md5       "711be181e597bdd7c3423094955d4937">
+<!ENTITY version   "2020.08.16">
+<!ENTITY md5       "23cb8a8ceef284050250dfbcdcacfbb7">
 <!ENTITY launch    "Apps">
 <!ENTITY plugdir   "/usr/local/emhttp/plugins/&name;">
 <!ENTITY github    "Squidly271/community.applications">
@@ -13,6 +13,10 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" min="6.4.0" support="https://lime-technology.com/forums/topic/38582-plug-in-community-applications/" icon="users">
 
 <CHANGES>
+###2020.08.16
+- Enhanced: Sort Categories according to translation, not English (Not 100% perfect (ie: fr_FR), but will get enhanced on future versions of Unraid.  Non Roman character sets (Arabic / Chinese will not sort properly)
+- Enhanced: Language's popup now completely translated according to the language
+
 ###2020.08.09
 - Fixed: Searches using UTF character sets (or via autocomplete) would return indeterminate results
 - Fixed: Templates with config entries pre-populatated with 0 would not be honoured
