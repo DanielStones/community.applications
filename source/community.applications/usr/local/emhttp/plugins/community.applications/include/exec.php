@@ -845,7 +845,7 @@ case 'caChangeLog':
 ###############################
 case 'get_categories':
 	$categories = readJsonFile($caPaths['categoryList']);
-	if ( ! is_array($categories) ) {
+	if ( ! is_array($categories) || empty($categories) ) {
 		$cat = "<span class='ca_fa-warning'></span> Category list N/A<br><br>";
 		break;
 	} else {
