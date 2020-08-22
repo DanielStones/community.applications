@@ -1312,7 +1312,7 @@ function scrollToTop() {
 function addDockerWarning(enableDisable) {
 	if (enableDisable) {
 		if ( dockerWarningAdded === false) {
-			dockerWarningAdded = addBannerWarning("<?tr('Docker Service Not Enabled - Only Plugins Available To Be Installed Or Managed')?>");
+			dockerWarningAdded = addBannerWarning("<?tr('Docker Service Not Enabled - Only Plugins Available To Be Installed Or Managed')?>",true,true);
 		}
 	} else {
 		if ( dockerWarningAdded !== false ) {
@@ -1456,7 +1456,6 @@ function CAswitchLanguage(language) {
 	saveState();
 	$.cookie('locale',oldlanguage,{path:'/'}); // save the previous locale
 	post({action:'switchLanguage',language:language},function(result) {
-
 		$.cookie("ca_languageSwitch","switched",{expires:365,path:'/'});
 		myCloseSpinner();
 		window.location.reload();
