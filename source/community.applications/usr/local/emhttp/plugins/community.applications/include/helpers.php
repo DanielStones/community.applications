@@ -54,7 +54,7 @@ function download_url($url, $path = "", $bg = false, $timeout = 45) {
 	curl_setopt($ch,CURLOPT_URL,$url);
 	curl_setopt($ch,CURLOPT_FRESH_CONNECT,true);
 	curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-	curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,15);
+//	curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,15);
 	curl_setopt($ch,CURLOPT_TIMEOUT,$timeout);
 	curl_setopt($ch,CURLOPT_ENCODING,"");
 	curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
