@@ -25,6 +25,10 @@ if ( ! is_file($caPaths['pluginWarning']) ) {
 	$pluginWarning = "false";
 }
 
+if ( ! is_file($caPaths['docker_cfg']) ) {
+	exec("logger -t 'Community Applications' 'Fatal Flash Drive Error: /boot/config/docker.cfg does not exist'");
+}
+
 $unRaidSettings = parse_ini_file($caPaths['unRaidVersion']);
 $unRaid66 =       version_compare($unRaidSettings['version'],"6.5.3",">");
 $unRaid68 =       version_compare($unRaidSettings['version'],"6.7.9",">");
@@ -108,6 +112,24 @@ var backupServerWarning = false;
 var restoreStateMenu = false;
 
 $(function(){
+	// This file is guaranteed to exist on the flash drive
+	<? if ( ! is_file($caPaths['docker_cfg']) ): ?>
+		$(".mainArea,.menuItems").html("");
+		swal({
+			title: "<?tr("Fatal Flash Drive Error")?>",
+			text: '<?tr('This usually means your flash drive is corrupted or has dropped offline.  The rest of the Unraid GUI will also be affected.  Post a new thread in the Unraid forums if this error continues')?>',
+			html: true,
+			type: 'error',
+			showCancelButton: false,
+			showConfirmButton: true,
+			confirmButtonText: "<?tr('OK')?>"
+		}, function (isConfirm) {
+			if ( isConfirm ) {
+				location.replace("/Main");
+			}
+		});
+		return;
+	<?endif;?>
 	caPluginUpdateCheck("community.applications.plg",{
 			noDismiss:true,
 			name:"Community Applications",
@@ -1476,7 +1498,7 @@ function removeLanguage(language) {
 
 </script>
 
-> <span class='caHelpIconSpacing'><i class='fa fa-sort enabledIcon' aria-hidden='true' style='font-size:2rem;'></i></span><?tr("This chooses how to sort the results");?><br>
+> <span class='caHelpIconSpacing'><i class='fa fa-sort-alpha-asc enabledIcon' aria-hidden='true' style='font-size:2rem;'></i></span><?tr("This chooses how to sort the results");?><br>
 > <span class='caHelpIconSpacing'><i class='fa fa-download' aria-hidden='true' style='font-size:2rem;'></i> <i class='fa fa-edit' aria-hidden='true' style='font-size:2rem;'></i></span><?tr("These icons respectively will **Install or Edit** an application");?><br>
 > <span class='caHelpIconSpacing'><i class='fa fa-globe' aria-hidden='true' style='font-size:2rem;'></i> <i class='fa fa-cog' aria-hidden='true' style='font-size:2rem;'></i></span><?tr("Clicking these icons will take you to an application's GUI or settings");?><br>
 > <span class='caHelpIconSpacing'><i class='fa fa-cloud-download' aria-hidden='true' style='font-size:2rem;'></i></span><?tr("This will update an application");?><br>

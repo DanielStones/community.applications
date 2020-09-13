@@ -273,7 +273,7 @@ a.appIconsPopUp { text-decoration:none;color:inherit;}
 .caHighlight {color:#FF0000;font-weight:bold;}
 .caChangeLog {cursor:pointer;}
 .caInstallLinePopUp {display:flex;flex-wrap:wrap;justify-content:space-around;}
-.caHelpIconSpacing {display:inline-block;width:7rem;}
+.caHelpIconSpacing {display:inline-block;width:7rem;height:3rem;}
 .awesomplete [hidden] {display: none;}
 .awesomplete .visually-hidden {position: absolute;clip: rect(0, 0, 0, 0);}
 .awesomplete {display: inline-block;position: relative;color: red;}
