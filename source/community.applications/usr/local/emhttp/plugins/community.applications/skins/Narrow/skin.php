@@ -288,7 +288,6 @@ function getPageNavigation($pageNumber,$totalApps,$dockerSearch,$displayCount = 
 	global $caSettings;
 
 	if ( $caSettings['maxPerPage'] < 0 ) return;
-	$swipeScript = "<script>";
 	$my_function = $dockerSearch ? "dockerSearch" : "changePage";
 	if ( $dockerSearch )
 		$caSettings['maxPerPage'] = 25;
@@ -308,7 +307,6 @@ function getPageNavigation($pageNumber,$totalApps,$dockerSearch,$displayCount = 
 	$o .= "<div class='pageNavigation'>";
 	$previousPage = $pageNumber - 1;
 	$o .= ( $pageNumber == 1 ) ? "<span class='pageLeft pageNumber pageNavNoClick'></span>" : "<span class='pageLeft ca_tooltip pageNumber' onclick='{$my_function}(&quot;$previousPage&quot;)'></span>";
-	$swipeScript .= "data.prevpage = $previousPage;";
 	$startingPage = $pageNumber - 5;
 	if ($startingPage < 3 )
 		$startingPage = 1;
@@ -331,9 +329,7 @@ function getPageNavigation($pageNumber,$totalApps,$dockerSearch,$displayCount = 
 	}
 	$nextPage = $pageNumber + 1;
 	$o .= ( $pageNumber < $totalPages ) ? "<span class='ca_tooltip pageNumber pageRight' onclick='{$my_function}(&quot;$nextPage&quot;);'></span>" : "<span class='pageRight pageNumber pageNavNoClick'></span>";
-	$swipeScript .= ( $pageNumber < $totalPages ) ? "data.nextpage = $nextPage;" : "data.nextpage = 0;";
-	$swipeScript .= ( $dockerSearch ) ? "dockerSearchFlag = true;" : "dockerSearchFlag = false";
-	$swipeScript .= "</script>";
+
 	$o .= "</div></div><script>data.currentpage = $pageNumber;</script>";
 	return $o.$swipeScript;
 }
