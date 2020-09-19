@@ -50,6 +50,8 @@ function writeJsonFile($filename,$jsonArray) {
 	file_put_contents($filename,json_encode($jsonArray, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 }
 function download_url($url, $path = "", $bg = false, $timeout = 45) {
+	global $debugging, $caPaths;
+	
 	$ch = curl_init();
 	curl_setopt($ch,CURLOPT_URL,$url);
 	curl_setopt($ch,CURLOPT_FRESH_CONNECT,true);
@@ -71,6 +73,9 @@ function download_url($url, $path = "", $bg = false, $timeout = 45) {
 	if ( $path )
 		file_put_contents($path,$out);
 
+	if ($debugging) {
+		file_put_contents($caPaths['logging'],"DOWNLOAD URL: $url\nRESULT:\n".var_dump_ret($out)."\n",FILE_APPEND);
+	}
 	return $out ?: false;
 }
 function download_json($url,$path) {
@@ -90,6 +95,13 @@ function getSortOrder($sortArray) {
 		$sortOrder[$sort[0]] = $sort[1];
 	}
 	return $sortOrder;
+}
+function var_dump_ret($mixed = null) {
+	ob_start();
+	var_dump($mixed);
+	$content = ob_get_contents();
+	ob_end_clean();
+	return $content;
 }
 
 ##############################################
@@ -552,12 +564,18 @@ function formatTags($leadTemplate) {
 # handles the POST return #
 ###########################
 function postReturn($retArray) {
+	global $debugging, $caPaths;
+	
 	if (is_array($retArray))
 		echo json_encode($retArray);
 	else
 		echo $retArray;
 	ob_flush();
 	flush();
+	
+	if ($debugging) {
+		file_put_contents($caPaths['logging'],"POST RETURN:\n".var_dump_ret($retArray)."\n",FILE_APPEND);
+	}
 }
 
 ####################################

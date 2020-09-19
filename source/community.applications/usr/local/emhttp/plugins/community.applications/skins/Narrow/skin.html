@@ -28,7 +28,11 @@
 <ul class='nonselectMenu'>
 	<li><span id='caInstalledVersion'></span></li>
 	<li class='caMenuItem caChangeLog'><?tr("Change Log");?></li>
+<?if ($cfg['debugging'] == "yes"):?>
+	<li class='caMenuItem debugging'><?tr("Debugging");?></li>
+<?endif;?>
 </ul>
+
  <br><br><br>
 </div>
 <br>

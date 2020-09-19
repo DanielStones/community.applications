@@ -31,6 +31,8 @@ require_once "$docroot/plugins/dynamix.plugin.manager/include/PluginHelpers.php"
 
 $caSettings = parse_plugin_cfg("community.applications");
 
+$debugging = $caSettings['debugging'] == "yes";
+
 $caSettings['maxPerPage']    = isMobile() ? 12 : 24;
 $caSettings['unRaidVersion'] = $unRaidSettings['version'];
 $caSettings['timeNew']       = "-10 years";
@@ -54,6 +56,10 @@ if ( is_file("/var/run/dockerd.pid") && is_dir("/proc/".@file_get_contents("/var
 if ( !is_dir($caPaths['templates-community']) ) {
 	@mkdir($caPaths['templates-community'],0777,true);
 	@unlink($caPaths['community-templates-info']);
+}
+
+if ($debugging) {
+	file_put_contents($caPaths['logging'],"POST CALLED\n".print_r($_POST,true),FILE_APPEND);
 }
 
 ############################################
@@ -261,8 +267,7 @@ case 'force_update':
 
 	if (!file_exists($caPaths['community-templates-info'])) {
 		$updatedSyncFlag = true;
-		DownloadApplicationFeed();
-		if (!file_exists($caPaths['community-templates-info'])) {
+		if (! DownloadApplicationFeed() ) {
 			$o['script'] = "$('.startupButton,.caMenu,.menuHeader').hide();$('.caRelated').show();";
 			$o['data'] =  "<div class='ca_center'><font size='4'><span class='ca_bold'>".tr("Download of appfeed failed.")."</span></font><font size='3'><br><br>Community Applications requires your server to have internet access.  The most common cause of this failure is a failure to resolve DNS addresses.  You can try and reset your modem and router to fix this issue, or set static DNS addresses (Settings - Network Settings) of 208.67.222.222 and 208.67.220.220 and try again.<br><br>Alternatively, there is also a chance that the server handling the application feed is temporarily down.";
 			$tempFile = @file_get_contents($caPaths['appFeedDownloadError']);

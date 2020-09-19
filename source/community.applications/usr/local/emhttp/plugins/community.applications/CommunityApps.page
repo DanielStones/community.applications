@@ -17,6 +17,11 @@ $plugin = "community.applications";
 require_once "$docroot/plugins/$plugin/include/paths.php";
 require_once "$docroot/plugins/$plugin/include/helpers.php";
 
+// Restart logging over at start of every session
+exec("rm -rf {$caPaths['CA_logs']}");
+exec("mkdir -p {$caPaths['CA_logs']}");
+$diagnosticsFile = htmlspecialchars(str_replace(' ','_',strtolower($var['NAME'])));
+
 $cfg = parse_plugin_cfg($plugin);
 if ( ! is_file($caPaths['warningAccepted']) ) {
 	$firstRun = "true";
@@ -244,6 +249,16 @@ $(function(){
 				pinnedApps();
 				break;
 		}
+	});
+	
+	$(".debugging").on("click",function() {
+		var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+		var localISOTime = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+		var filename='CA-Logging-'+localISOTime.substr(0,16).replace(/[-:]/g,'').replace('T','-')+'.zip';
+
+		$.post('/webGui/include/Download.php',{cmd:'save',file:filename,source:"<?=$caPaths['logging']?>"},function(zip) {
+			location = zip;
+		});
 	});
 
 	$(".initDockerSearch").click(function()     { initDockerSearch(); });
@@ -1020,7 +1035,6 @@ function makePlural(string,count) {
 	return ( (count > 1) || (count == 0) ) ? string + "s" : string;
 }
 function selectAllPrevious() {
-	console.log("here");
 	$(".ca_multiselect").each(function() {
 		$(this).prop("checked",true);
 	});
@@ -1223,7 +1237,9 @@ function updateDisplay(data) {
 
 function saveState() {
 	if ( ! dockerSearchFlag ) {
-		console.log("Save State");
+		<? if ( $cfg['debugging'] == "yes" ):?>
+			console.log("Save State");
+		<?endif;?>
 		$.cookie("ca_categoryText",$("#Category").html());
 		$.cookie("ca_data",JSON.stringify(data));
 		$.cookie("ca_dockerSearchFlag",dockerSearchFlag);
@@ -1247,7 +1263,9 @@ function saveState() {
 function restoreState() {
 	swalBackground("transparent");
 
-	console.log("Restore State");
+	<? if ( $cfg['debugging'] == "yes" ):?>
+		console.log("Restore State");
+	<?endif;?>
 	$.removeCookie("ca_languageSwitch",{path:'/'});
 
 	$("#Category").html($.cookie("ca_categoryText"));
@@ -1354,15 +1372,19 @@ function post(options,callback) {
 	if ( typeof options === "function" ) {
 		callback = options;
 	} else {
-		var msg = postCount > 0 ? "Embedded Post: " : "Post: ";
-		console.log(msg+JSON.stringify(options));
+		<? if ( $cfg['debugging'] == "yes" ):?>
+			var msg = postCount > 0 ? "Embedded Post: " : "Post: ";
+			console.log(msg+JSON.stringify(options));
+		<?endif;?>
 	}
 
 	if ( postCount == 0 && ! options.noSpinner ) {
 		mySpinner();
 	}
 	postCount++;
-	console.log("Post Count: "+postCount);
+	<? if ( $cfg['debugging'] == "yes" ):?>
+		console.log("Post Count: "+postCount);
+	<?endif;?>
 	if ( typeof callback === "function" ) {
 		$.post(URL,options,function(retval){
 			try {
@@ -1386,9 +1408,11 @@ function post(options,callback) {
 					throw new Error("Something went badly wrong!");
 				}
 			}
-			console.groupCollapsed("Result "+options.action);
-			console.log(result);
-			console.groupEnd();
+			<? if ( $cfg['debugging'] == "yes" ):?>
+				console.groupCollapsed("Result "+options.action);
+				console.log(result);
+				console.groupEnd();
+			<?endif;?>
 			eval(callback(result));
 			if (result.script) {
 				try {
@@ -1427,7 +1451,9 @@ function getCategories() {
 	post({action:'get_categories'},function(result) {
 		$("#category_list").html(result.categories);
 		if ( restoreStateMenu ) {
-			console.log(restoreStateMenu);
+			<? if ( $cfg['debugging'] == "yes" ):?>
+				console.log(restoreStateMenu);
+			<?endif;?>
 			if ( restoreStateMenu && ! evaluateBoolean(data.searchFlag) ) {
 				var menuItem = $.find(".caMenuItem[data-category='"+restoreStateMenu+"']");
 				$(".caMenuItem").each(function(){
