@@ -340,7 +340,17 @@ $(function(){
 				});
 			}
 		});
-	} else {
+	} else if (! "<?=$cfg['feed']?>" ) {
+		swal({
+			title: 'Application Feed',
+			text: "Select Application Feed",
+			type: "info",
+			showCancelButton: true,
+			showConfirmButton: true,
+			confirmButtonText: "Default (Recommended)",
+			cancelButtonText: "Custom URL"
+		});
+	}	else {
 		if ( (document.referrer.indexOf("/Apps/") > 1) && ( document.referrer.indexOf("/Apps/ca_settings") < 1 ) && cookiesEnabled() && ("<?=$dockerConvertFlag?>" != "true") || $.cookie("ca_languageSwitch") ) {
 			restoreState();
 			refreshDisplay();
