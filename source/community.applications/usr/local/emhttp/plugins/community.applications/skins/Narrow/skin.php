@@ -88,10 +88,11 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 
 		if ( ! $template['DonateText'] )
 			$template['DonateText'] = tr("Donate To Author");
-
-		$template['display_Private'] = ( $template['Private'] == "true" ) ? "<span class='ca_tooltip ca_private' title='".tr("Private (dockerHub Conversion)")."'></span>" : "";
-		$template['display_DonateImage'] = $template['DonateLink'] ? "<a class='ca_tooltip donateLink donate' href='{$template['DonateLink']}' target='_blank' title='{$template['DonateText']}'>".tr("Donate")."</a>" : "";
-
+		if ( $selected ) {
+			$template['display_Private'] = ( $template['Private'] == "true" ) ? "<span class='ca_tooltip ca_private' title='".tr("Private Application")."'></span>" : "";
+			$template['display_DonateImage'] = $template['DonateLink'] ? "<a class='ca_tooltip donateLink donate' href='{$template['DonateLink']}' target='_blank' title='{$template['DonateText']}'>".tr("Donate")."</a>" : "";
+		}
+		
 		$template['display_faProject'] = $template['Project'] ? "<a class='ca_tooltip ca_fa-project appIcons' target='_blank' href='{$template['Project']}' title='".tr("Go to the project page")."'></a>" : "";
 		$supportText = $template['SupportClickLanguage'] ?: tr("Go to the support thread");
 		$template['display_faSupport'] = $template['Support'] ? "<a class='ca_tooltip ca_fa-support appIcons' href='{$template['Support']}' target='_blank' title='$supportText'></a>" : "";

@@ -24,18 +24,7 @@ function tr($string,$ret=false) {
 		echo $string;
 }
 ?>
-<script>
-$(function() {
-	toggleFeed();
-});
 
-function toggleFeed() {
-  if ( $("#feed").val() == "custom" )
-		$(".appfeedURL").removeAttr("disabled");
-	else
-		$(".appfeedURL").attr("disabled",true);
-}
-</script>
 <form markdown="1" method="POST" action="/update.php" target="progressFrame">
 <input type="hidden" name="#file" value="<?=$plugin?>/<?=$plugin?>.cfg">
 
@@ -81,18 +70,6 @@ function toggleFeed() {
 > <?tr("1. Known malware and security vulnerabilities within applications");?><br>
 > <?tr("2. Critical security vulnerabilities within Unraid OS");?><br>
 > <?tr("3. Any installed applications which may seriously hinder the operation of your server");?>
-
-<?tr("Application Feed:");?>
-: <select name='feed' id='feed' size='1' onchange='toggleFeed()'>
-	<?=mk_option($cfg['feed'],"default",tr("Default (Recommended)",true))?>
-	<?=mk_option($cfg['feed'],"custom",tr("Custom",true))?>
-	</select>
-
-<?tr("Last Updated URL:");?>
-: <input class='appfeedURL' type='text' name='lastUpdatedURL' value='<?=$cfg['lastUpdatedURL']?>' placeholder='URL to last updated file'></input>
-
-<?tr("Appfeed URL:");?>
-: <input class='appfeedURL' type='text' name='appfeedURL' value='<?=$cfg['appfeedURL']?>' placeholder='URL to Application Feed'></input>
 
 <?tr("Save CA debugging information:");?>
 : <select name='debugging' size='1'>
