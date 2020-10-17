@@ -874,7 +874,7 @@ function uninstallApp(application,humanName) {
 		if (isConfirm) {
 			application = application.basename();
 			<? if ( $translations ): ?>
-				openBox('/plugins/community.applications/scripts/pluginInstall.sh&arg1=remove&arg2='+application,"<?tr('Uninstall Plugin')?>",600,900,true,"postUninstallPlugin()");
+				openBox('/plugins/community.applications/scripts/pluginInstall.sh&arg1=remove&arg2='+application,"<?tr('Uninstall Plugin')?>",600,900,true,"postUninstallPlugin");
 			<? else: ?>
 				my_openBox('/plugins/community.applications/scripts/pluginInstall.sh&arg1=remove&arg2='+application,"<?tr('Uninstall Plugin')?>",600,900,true,"postUninstallPlugin()");
 			<? endif; ?>

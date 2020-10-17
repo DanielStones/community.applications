@@ -78,7 +78,6 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 
 		$selected = appInstalled($template,$info);
 		$selected = $template['Uninstall'] ? true : $selected;
-
 	
 		$appType = $template['Plugin'] ? "plugin" : "docker";
 		$previousAppName = $template['Plugin'] ? $template['PluginURL'] : $template['Name'];
@@ -86,12 +85,13 @@ function my_display_apps($file,$pageNumber=1,$selectedApps=false,$startup=false)
 
 		$template['Category'] = categoryList($template['Category']);
 
+		$template['display_Private'] = ( $template['Private'] == "true" ) ? "<span class='ca_tooltip ca_private' title='".tr("Private Application")."'></span>" : "";
+
 		if ( ! $template['DonateText'] )
 			$template['DonateText'] = tr("Donate To Author");
-		if ( $selected ) {
-			$template['display_Private'] = ( $template['Private'] == "true" ) ? "<span class='ca_tooltip ca_private' title='".tr("Private Application")."'></span>" : "";
+	
+		if ( $selected )
 			$template['display_DonateImage'] = $template['DonateLink'] ? "<a class='ca_tooltip donateLink donate' href='{$template['DonateLink']}' target='_blank' title='{$template['DonateText']}'>".tr("Donate")."</a>" : "";
-		}
 		
 		$template['display_faProject'] = $template['Project'] ? "<a class='ca_tooltip ca_fa-project appIcons' target='_blank' href='{$template['Project']}' title='".tr("Go to the project page")."'></a>" : "";
 		$supportText = $template['SupportClickLanguage'] ?: tr("Go to the support thread");
