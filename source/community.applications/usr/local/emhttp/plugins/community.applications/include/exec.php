@@ -825,8 +825,16 @@ case 'populateAutoComplete':
 			} else {
 				$autoComplete[$template['Repo']] = $template['Repo'];
 			}
-			$autoComplete[strtolower($template['Name'])] = $template['Name'];
-			$autoComplete[strtolower($template['Author'])] = $template['Author'];
+			$name = strtolower($template['Name']);
+			$autoComplete[$name] = str_ireplace($template['Author']."-","",$template['Name']);
+			$autoComplete[$name] = str_ireplace($template['Author']." ","",$autoComplete[$name]);
+			if ( startsWith($autoComplete[$name],"Dynamix ") )
+				$autoComplete[$name] = str_replace("Dynamix ","",$autoComplete[$name]);
+			if ( startsWith($autoComplete[$name],"CA ") )
+				$autoComplete[$name] = str_replace("CA ","",$autoComplete[$name]);
+			
+			if ( $template['Plugin'] ) 
+				$autoComplete[strtolower($template['Author'])] = $template['Author'];
 		}
 	}
 	if ( version_compare("6.9.0-beta1",$caSettings['unRaidVersion'],"<") )
